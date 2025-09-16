@@ -11,6 +11,14 @@ const ProductDetail = () => {
    const dispatch = useDispatch()
     const {data:product, isLoading,error} = useSelector((state)=>state.product)
     const {id} = useParams()
+    const cart = useSelector((state) => state.cart)
+const totalQuantity = () => {
+  let total = 0
+  cart.forEach(item => {
+    total += item.quantity
+  })
+  return total
+}
     useEffect(()=>{
         dispatch(getProductById(id))
         console.log(product)

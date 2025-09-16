@@ -11,6 +11,7 @@ import Product from './pages/Product'
 import ProductDetail from './components/ProductDetail'
 import Login from './components/Login'
 import DetailPage from './components/DetailPage'
+import ShoppingCartCard from './components/ShoppingCartCard'
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
     {/* <Route path='/product/:id' element={<ProductDetail />} /> */}
     <Route path='/product/:id' element={<DetailPage />} />
     <Route path='/login' element={<Login />} />
+    <Route path='/cart' element={<ShoppingCartCard />} />
       </Route>
     </Routes>
     </BrowserRouter>

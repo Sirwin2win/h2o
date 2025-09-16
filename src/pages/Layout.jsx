@@ -80,8 +80,10 @@ const [nav, setNav] = useState(false);
                 </div>
               ))}
               <div>
-<HiShoppingCart /> 
-<p>{cartNo}</p>
+                <Link to={'/cart'} >
+            <HiShoppingCart /> 
+            </Link>
+              <p>{cartNo}</p>
               </div>
                
             </ul>

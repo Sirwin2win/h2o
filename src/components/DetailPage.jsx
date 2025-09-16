@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 // import { useGetProductByIdQuery } from "../features/apiSlice";
 import { getProductById } from '../features/detailReducer'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart } from '../features/cartSlice'
+import { addToCart, incrementQuantity, decrementQuantity, removeItem } from '../features/cartSlice'
 
 const DetailPage = () => {
    const dispatch = useDispatch()
@@ -11,7 +11,7 @@ const DetailPage = () => {
     const {id} = useParams()
     useEffect(()=>{
         dispatch(getProductById(id))
-        console.log(product)
+        // console.log(product)
     },[dispatch,id])
   return (
    <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -70,14 +70,19 @@ const DetailPage = () => {
             <label htmlFor="qty" className="block text-sm font-medium text-gray-700 mb-2">Quantity <span className="text-xs text-gray-400">(99 available)</span></label>
             <div className="flex items-center gap-3">
               <div className="flex items-center rounded-lg border overflow-hidden">
-                <button id="dec" className="px-4 py-2 text-lg bg-white hover:bg-gray-100">−</button>
-                <input id="qty" type="number" value="1" min="1" max="10" className="w-16 text-center outline-none p-2" aria-label="Quantity" />
-                <button id="inc" className="px-4 py-2 text-lg bg-white hover:bg-gray-100">+</button>
+
+
+                {/* <button id="addToCart" className="ml-auto flex-1 lg:flex-none  text-blue-700 font-semibold rounded-lg px-6 py-3 shadow">Continue Shopping</button> */}
+                <button id="dec" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(decrementQuantity())}>−</button>
+                {/* <input id="qty" type="number" value="1" min="1" max="10" className="w-16 text-center outline-none p-2" aria-label="Quantity" /> */}
+                
+                
+                <button id="inc" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(incrementQuantity(product.id))}>+</button>
               </div>
 
               <button id="addToCart" className="ml-auto flex-1 lg:flex-none bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg px-6 py-3 shadow" onClick={()=>dispatch(addToCart(product))}>Add to Cart</button>
             </div>
-            <p className="text-xs text-gray-400 mt-2">Max order limit: <strong className="text-gray-700">10 per customer</strong></p>
+            <p className="text-xs text-gray-400 mt-2">To become a dealer: <strong className="text-gray-700">Buy 100 and above</strong></p>
           </div>
 
           <hr className="my-6" />

@@ -1,18 +1,29 @@
    import { configureStore } from '@reduxjs/toolkit';
-    // import { api } from '../features/apiSlice';
     import productSlice from "../features//productSlice"
     import cartSlice from "../features/cartSlice"
     import detailSlice from "../features/detailReducer";
+    import storage from 'redux-persist/lib/storage'
+    import { persistReducer } from 'redux-persist';
+    import {combineReducers} from 'redux'
+import { version } from 'react';
 
-    const store = configureStore({
-      reducer: {
-        // [api.reducerPath]: api.reducer,
+
+
+    const persistConfig={
+      key:"root",
+      version:1,
+      storage,
+    }
+
+    const reducer = combineReducers({
         products: productSlice,
         cart : cartSlice,
          product: detailSlice,
-      },
-      // middleware: (getDefaultMiddleware) =>
-      //   getDefaultMiddleware().concat(api.middleware),
+    })
+   const persistedReducer = persistReducer(persistConfig,reducer)
+
+    const store = configureStore({
+      reducer: persistedReducer
     });
 
     export default store
