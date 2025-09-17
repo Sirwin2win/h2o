@@ -7,6 +7,7 @@ import { Link , Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import { useSelector } from "react-redux";
 import { HiShoppingCart } from "react-icons/hi";
+import SearchBar from "../components/SearchBar";
 
 
 
@@ -52,14 +53,14 @@ const [nav, setNav] = useState(false);
             <section
               className="flex items-center flex-wrap lg:justify-center gap-4 py-2.5 sm:px-10 px-4 border-gray-200 border-b min-h-[70px]">
       
-              <div className="left-10 absolute z-50 bg-gray-100 border border-gray-300 flex items-center px-4 py-2.5 rounded max-lg:hidden focus-within:bg-transparent">
+              <div className="left-10 absolute z-50 border border-gray-300 flex items-center px-4 py-2.5 rounded max-lg:hidden focus-within:bg-transparent">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904"
                   className="cursor-pointer fill-gray-400 mr-2.5 inline-block w-[18px] h-[18px]">
                   <path
                     d="m190.707 180.101-47.078-47.077c11.702-14.072 18.752-32.142 18.752-51.831C162.381 36.423 125.959 0 81.191 0 36.422 0 0 36.423 0 81.193c0 44.767 36.422 81.187 81.191 81.187 19.688 0 37.759-7.049 51.831-18.751l47.079 47.078a7.474 7.474 0 0 0 5.303 2.197 7.498 7.498 0 0 0 5.303-12.803zM15 81.193C15 44.694 44.693 15 81.191 15c36.497 0 66.189 29.694 66.189 66.193 0 36.496-29.692 66.187-66.189 66.187C44.693 147.38 15 117.689 15 81.193z">
                   </path>
                 </svg>
-                <input type='text' placeholder='Search...' className="outline-none bg-transparent w-full text-sm" />
+              <SearchBar />
               </div>
       
               <a href="javascript:void(0)" className="max-sm:hidden"><img src={leather} alt="logo" className="w-36 h-10 rounded-full" />
@@ -77,6 +78,7 @@ const [nav, setNav] = useState(false);
                   </svg>
                   <span className="absolute left-auto -ml-1 top-0 rounded-full bg-blue-600 px-1 py-0 text-xs min-w-[15px] text-center text-white">1</span>
                 </span>
+              <Link to={'/cart'}>
                 <span className="relative">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
                     className="cursor-pointer fill-gray-800 hover:fill-blue-700 inline-block" viewBox="0 0 512 512">
@@ -84,8 +86,9 @@ const [nav, setNav] = useState(false);
                       d="M164.96 300.004h.024c.02 0 .04-.004.059-.004H437a15.003 15.003 0 0 0 14.422-10.879l60-210a15.003 15.003 0 0 0-2.445-13.152A15.006 15.006 0 0 0 497 60H130.367l-10.722-48.254A15.003 15.003 0 0 0 105 0H15C6.715 0 0 6.715 0 15s6.715 15 15 15h77.969c1.898 8.55 51.312 230.918 54.156 243.71C131.184 280.64 120 296.536 120 315c0 24.812 20.188 45 45 45h272c8.285 0 15-6.715 15-15s-6.715-15-15-15H165c-8.27 0-15-6.73-15-15 0-8.258 6.707-14.977 14.96-14.996zM477.114 90l-51.43 180H177.032l-40-180zM150 405c0 24.813 20.188 45 45 45s45-20.188 45-45-20.188-45-45-45-45 20.188-45 45zm45-15c8.27 0 15 6.73 15 15s-6.73 15-15 15-15-6.73-15-15 6.73-15 15-15zm167 15c0 24.813 20.188 45 45 45s45-20.188 45-45-20.188-45-45-45-45 20.188-45 45zm45-15c8.27 0 15 6.73 15 15s-6.73 15-15 15-15-6.73-15-15 6.73-15 15-15zm0 0"
                       data-original="#000000"></path>
                   </svg>
-                  <span className="absolute left-auto -ml-1 top-0 rounded-full bg-blue-600 px-1 py-0 text-xs min-w-[15px] text-center text-white">{cartNo}</span>
+                  <span className="absolute left-auto -ml-1 top-0 rounded-full bg-blue-600 px-1 py-0 text-xs min-w-[15px] text-center text-white">{Math.round(cartNo*100)/100}</span>
                 </span>
+              </Link>
                 <div className="inline-block cursor-pointer border-gray-300">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"
                     className="hover:fill-blue-700" onClick={toggleDropdown}>
@@ -122,6 +125,24 @@ const [nav, setNav] = useState(false);
             </section>
       
             <div className="flex flex-wrap justify-center sm:px-10 px-4 py-3 relative">
+
+            
+
+
+     {/* Mobile Search Bar */}
+           <div className="mr-20 md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904"
+                  className="cursor-pointer fill-gray-400 mr-2.5 inline-block w-[18px] h-[18px]">
+                  <path
+                    d="m190.707 180.101-47.078-47.077c11.702-14.072 18.752-32.142 18.752-51.831C162.381 36.423 125.959 0 81.191 0 36.422 0 0 36.423 0 81.193c0 44.767 36.422 81.187 81.191 81.187 19.688 0 37.759-7.049 51.831-18.751l47.079 47.078a7.474 7.474 0 0 0 5.303 2.197 7.498 7.498 0 0 0 5.303-12.803zM15 81.193C15 44.694 44.693 15 81.191 15c36.497 0 66.189 29.694 66.189 66.193 0 36.496-29.692 66.187-66.189 66.187C44.693 147.38 15 117.689 15 81.193z">
+                  </path>
+                </svg>
+              <SearchBar />
+              </div>
+
+
+
+
       
               <div id="collapseMenu"
                 className="max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-40 max-lg:before:inset-0 max-lg:before:z-50">

@@ -30,40 +30,40 @@ const Checkout = () => {
         })
     }
   return (
-    <div class="container mx-auto p4-10">
-    <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-xl">
-        <div class="md:flex">
-            <div class="w-full px-6 py-8 md:p-8">
-                <h2 class="text-2xl font-bold text-gray-800 text-center">Checkout</h2>
-                <p class="mt-4 text-gray-600">Please fill out the form below to complete your purchase.</p>
-                <form class="mt-6">
-                    <div class="mb-6">
-                        <label class="block text-gray-800 font-bold mb-2" for="name">
+    <div className="container mx-auto p4-10">
+    <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-xl">
+        <div className="md:flex">
+            <div className="w-full px-6 py-8 md:p-8">
+                <h2 className="text-2xl font-bold text-gray-800 text-center">Checkout</h2>
+                <p className="mt-4 text-gray-600">Please fill out the form below to complete your purchase.</p>
+                <form className="mt-6">
+                    <div className="mb-6">
+                        <label className="block text-gray-800 font-bold mb-2" htmlFor="name">
                             Name
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="John Doe" />
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="John Doe" />
                     </div>
-                    <div class="mb-6">
-                        <label class="block text-gray-800 font-bold mb-2" for="email">
+                    <div className="mb-6">
+                        <label className="block text-gray-800 font-bold mb-2" htmlFor="email">
                             Email
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="johndoe@example.com" />
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="johndoe@example.com" />
                     </div>
-                    <div class="mb-6">
-                        <label class="block text-gray-800 font-bold mb-2" for="card_number">
+                    <div className="mb-6">
+                        <label className="block text-gray-800 font-bold mb-2" htmlFor="card_number">
                             Phone Number
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="card_number" type="text" placeholder="+234" />
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="card_number" type="text" placeholder="+234" />
                     </div>
-                    <div class="mb-6">
-                        <label class="block text-gray-800 font-bold mb-2" for="expiration_date">
+                    <div className="mb-6">
+                        <label className="block text-gray-800 font-bold mb-2" htmlFor="expiration_date">
                             Address
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="expiration_date" type="text" placeholder="plot 234 4th Ave" />
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="expiration_date" type="text" placeholder="plot 234 4th Ave" />
                     </div>
                   
-                    <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                        Submit
+                    <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                        Checkout
                     </button>
                 </form>
             </div>

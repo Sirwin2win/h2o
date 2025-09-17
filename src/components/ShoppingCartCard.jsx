@@ -29,7 +29,7 @@ const totalPrice = function(){
       </div>
         {items.map((item)=>(
             
-                     <div className="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50">
+                     <div className="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50" key={item.id}>
         <div className="md:w-4/12 2xl:w-1/4 w-full">
           <img src={item.image} alt="Black Leather Purse" className="h-full object-center object-cover md:block hidden" />
           <img src={item.image} alt="Black Leather Purse" className="md:hidden w-full h-full object-center object-cover" />
@@ -47,7 +47,7 @@ const totalPrice = function(){
           <p className="text-xs leading-3 text-gray-600 pt-2">Quantity: {item.quantity}</p>
           <p className="text-xs leading-3 text-gray-600 py-4">Price: {item.price}</p>
           <p className="w-96 text-xs leading-3 text-gray-600">Composition: 100% calf leather</p>
-            <div className="flex items-center rounded-lg border overflow-hidden">
+            <div className="flex items-center rounded-lg border overflow-hidden mt-10 w-30">
           
           
                           {/* <button id="addToCart" className="ml-auto flex-1 lg:flex-none  text-blue-700 font-semibold rounded-lg px-6 py-3 shadow">Continue Shopping</button> */}
@@ -93,7 +93,7 @@ const totalPrice = function(){
       </div> */}
       <div className="py-10">
         <label
-              for="promo"
+              htmlFor="promo"
               className="font-semibold inline-block mb-3 text-sm uppercase"
             >
               Promo Code

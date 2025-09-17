@@ -5,6 +5,7 @@
     import storage from 'redux-persist/lib/storage'
     import { persistReducer } from 'redux-persist';
     import {combineReducers} from 'redux'
+   import filterReducer  from '../features/filtersSlice'
 import { version } from 'react';
 
 
@@ -19,6 +20,7 @@ import { version } from 'react';
         products: productSlice,
         cart : cartSlice,
          product: detailSlice,
+         filter: filterReducer,
     })
    const persistedReducer = persistReducer(persistConfig,reducer)
 
