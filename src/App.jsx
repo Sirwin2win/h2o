@@ -12,6 +12,7 @@ import ProductDetail from './components/ProductDetail'
 import Login from './components/Login'
 import DetailPage from './components/DetailPage'
 import ShoppingCartCard from './components/ShoppingCartCard'
+import Checkout from './components/Checkout'
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
     <Route path='/product/:id' element={<DetailPage />} />
     <Route path='/login' element={<Login />} />
     <Route path='/cart' element={<ShoppingCartCard />} />
+    <Route path='/checkout' element={<Checkout />} />
       </Route>
     </Routes>
     </BrowserRouter>

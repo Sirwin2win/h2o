@@ -9,6 +9,7 @@ import headset3 from '../assets/images/headset3.avif'
 import laptop4 from '../assets/images/laptop4.avif'
 import Slide from '../components/Slide'
 // import ProductCard from '../components/ProductCard'
+import Navbar from '../components/Navbar'
 
 const Home = () => {
     const products = [
@@ -30,6 +31,7 @@ const Home = () => {
   return (
 
     <div>
+      {/* <Navbar /> */}
 <Slide images={images}/>
  
     <div className='grid sm:grid-cols-2 md:grid-cols-4 pt-8 gap-2'>

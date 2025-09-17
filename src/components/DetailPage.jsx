@@ -29,18 +29,15 @@ const DetailPage = () => {
             <div className="text-sm text-gray-500">{product.title}</div>
           </div>
         </div>
-
         <div className="bg-white rounded-xl p-4 shadow-sm">
           <h3 className="text-sm font-semibold text-gray-700 mb-2">About this product</h3>
           <p className="text-sm text-gray-600 leading-relaxed"> {product.description}</p>
         </div>
       </div>
-
        {/* RIGHT: Product Info  */}
       <aside className="sticky top-6">
         <div className="bg-white rounded-xl shadow p-6 lg:p-8">
           <h5 className="text-2xl lg:text-3xl font-extrabold leading-tight">{product.category}</h5>
-
           <div className="mt-4 flex items-end gap-4">
             <div>
               <div className="text-3xl lg:text-4xl font-extrabold price-shadow">${product.price}</div>
@@ -48,14 +45,12 @@ const DetailPage = () => {
               <div className="text-sm text-green-600 font-medium mt-1">You save $30</div>
               <div className="text-xs text-gray-400 mt-1">Inclusive of all taxes</div>
             </div>
-
             <div className="ml-auto text-right">
               <button aria-label="Add to wishlist" className="p-2 rounded-md border hover:bg-gray-50">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-pink-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 18.656 3.172 11.83a4 4 0 010-5.656z"/></svg>
               </button>
             </div>
           </div>
-
            {/* Delivery & Stock  */}
           <div className="mt-5 border rounded-lg p-4 bg-gray-50 flex items-center gap-4">
             <div className="flex-1 text-sm">
@@ -64,29 +59,21 @@ const DetailPage = () => {
             </div>
             <div className="text-sm font-medium text-green-600">In Stock</div>
           </div>
-
            {/* Quantity & Add  */}
           <div className="mt-5">
             <label htmlFor="qty" className="block text-sm font-medium text-gray-700 mb-2">Quantity <span className="text-xs text-gray-400">(99 available)</span></label>
             <div className="flex items-center gap-3">
               <div className="flex items-center rounded-lg border overflow-hidden">
-
-
                 {/* <button id="addToCart" className="ml-auto flex-1 lg:flex-none  text-blue-700 font-semibold rounded-lg px-6 py-3 shadow">Continue Shopping</button> */}
                 <button id="dec" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(decrementQuantity())}>−</button>
                 {/* <input id="qty" type="number" value="1" min="1" max="10" className="w-16 text-center outline-none p-2" aria-label="Quantity" /> */}
-                
-                
                 <button id="inc" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(incrementQuantity(product.id))}>+</button>
               </div>
-
               <button id="addToCart" className="ml-auto flex-1 lg:flex-none bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg px-6 py-3 shadow" onClick={()=>dispatch(addToCart(product))}>Add to Cart</button>
             </div>
             <p className="text-xs text-gray-400 mt-2">To become a dealer: <strong className="text-gray-700">Buy 100 and above</strong></p>
           </div>
-
           <hr className="my-6" />
-
           <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-600">
             <div>
               <dt className="text-xs text-gray-500">Origin</dt>
@@ -107,9 +94,7 @@ const DetailPage = () => {
               </dd>
             </div>
           </dl>
-
         </div>
-
          {/* Collapsible Details Card  */}
         <div className="mt-6 bg-white rounded-xl p-4 shadow-sm">
           <button aria-expanded="false" className="w-full flex items-center justify-between py-2 px-1" id="toggleDetails">
@@ -124,17 +109,14 @@ const DetailPage = () => {
             </ul>
           </div>
         </div>
-
          {/* Mobile sticky CTA  */}
         <div id="mobileCta" className="fixed left-0 right-0 bottom-4 px-4 lg:hidden">
           <div className="max-w-3xl mx-auto">
             <button id="mobileAdd" className="w-full bg-green-600 text-white rounded-full py-3 font-semibold shadow-lg" onClick={()=>dispatch(addToCart(product))}> Add to Cart</button>
           </div>
         </div>
-
       </aside>
     </section>
   )
 }
-
 export default DetailPage
