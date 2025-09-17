@@ -13,14 +13,19 @@ import { HiShoppingCart } from "react-icons/hi";
 const Layout = () => {
   const cartNo = useSelector(state => state.cart.totalQuantity)
 const [nav, setNav] = useState(false);
-  const handleLogout = async () => {
-    const { success, error } = await destroySession();
-    if (success) {
-      router.push("/login");
-    } else {
-      console.log("Logout Error");
-    }
-  };
+ const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+  // const handleLogout = async () => {
+  //   const { success, error } = await destroySession();
+  //   if (success) {
+  //     router.push("/login");
+  //   } else {
+  //     console.log("Logout Error");
+  //   }
+  // };
 
   // Toggle function to handle the navbar's display
   const handleNav = () => {
@@ -34,8 +39,8 @@ const [nav, setNav] = useState(false);
     { id: 4, to: "/product", txt: "Product" },
     { id: 5, to: "/manageRooms", txt: "Manage" },
     // { id: 6, to: "/blog", txt: "Blog" },
-    { id: 6, to: "/login", txt: "Login" },
-    { id: 7, to: "/register", txt: "Register" },
+    // { id: 6, to: "/login", txt: "Login" },
+    // { id: 7, to: "/register", txt: "Register" },
     // { id: 8, to: "/cart", txt: v+" "+`${cartNo}`},
   ];
 
@@ -83,12 +88,35 @@ const [nav, setNav] = useState(false);
                 </span>
                 <div className="inline-block cursor-pointer border-gray-300">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"
-                    className="hover:fill-blue-700">
+                    className="hover:fill-blue-700" onClick={toggleDropdown}>
                     <circle cx="10" cy="7" r="6" data-original="#000000" />
                     <path
                       d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
                       data-original="#000000" />
                   </svg>
+                  {isOpen && (
+                <div
+                    className="origin-top-right absolute right-0 mt-2 w-30 
+                    rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5
+                    focus:outline-none"
+                    
+                >
+                    <ul className="py-3" role="none">
+                        <Link
+                           to={'/register'}
+                            className="block p-4 text-sm text-gray-700 
+                            hover:bg-gray-100"
+                            role="menuitem"
+                        >
+                           Register
+                        </Link>
+                     <li>
+      <Link to={'/login'} className="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden">Login</Link>
+                     </li>
+                     
+                    </ul>
+                </div>
+            )}
                 </div>
               </div>
             </section>
