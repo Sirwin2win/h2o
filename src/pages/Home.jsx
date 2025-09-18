@@ -11,6 +11,7 @@ import Slide from '../components/Slide'
 // import ProductCard from '../components/ProductCard'
 import Navbar from '../components/Navbar'
 import ImageCarousel from '../components/ImageCarousel'
+// import TopSellers from '../Sales/TopSellers'
 
 const Home = () => {
     const products = [
@@ -34,7 +35,7 @@ const Home = () => {
 
     <div>
       {/* <Navbar /> */}
-      {/* <ImageCarousel /> */}
+    
 <Slide images={images}/>
  
     <div className='grid sm:grid-cols-2 md:grid-cols-4 pt-8 gap-2'>
@@ -55,6 +56,8 @@ const Home = () => {
 </div>             
         ))}
           </div>
+
+          <ImageCarousel />
           </div>
   )
 }

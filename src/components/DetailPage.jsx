@@ -47,7 +47,7 @@ const DetailPage = () => {
             </div>
             <div className="ml-auto text-right">
               <button aria-label="Add to wishlist" className="p-2 rounded-md border hover:bg-gray-50">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-pink-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 18.656 3.172 11.83a4 4 0 010-5.656z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 18.656 3.172 11.83a4 4 0 010-5.656z"/></svg>
               </button>
             </div>
           </div>
@@ -69,7 +69,7 @@ const DetailPage = () => {
                 {/* <input id="qty" type="number" value="1" min="1" max="10" className="w-16 text-center outline-none p-2" aria-label="Quantity" /> */}
                 <button id="inc" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(incrementQuantity(product.id))}>+</button>
               </div>
-              <button id="addToCart" className="ml-auto flex-1 lg:flex-none bg-blue-700 hover:bg-green-700 text-white font-semibold rounded-lg px-6 py-3 shadow" onClick={()=>dispatch(addToCart(product))}>Add to Cart</button>
+              <button id="addToCart" className="ml-auto flex-1 lg:flex-none bg-blue-700 hover:bg-blue-700 text-white font-semibold rounded-lg px-6 py-3 shadow" onClick={()=>dispatch(addToCart(product))}>Add to Cart</button>
             </div>
             <p className="text-xs text-gray-400 mt-2">To become a dealer: <strong className="text-gray-700">Buy 100 and above</strong></p>
           </div>
