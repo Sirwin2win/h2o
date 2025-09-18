@@ -42,7 +42,7 @@ const DetailPage = () => {
             <div>
               <div className="text-3xl lg:text-4xl font-extrabold price-shadow">${product.price}</div>
               <div className="text-sm text-gray-400 line-through">$80.00</div>
-              <div className="text-sm text-green-600 font-medium mt-1">You save $30</div>
+              <div className="text-sm text-blue-700 font-medium mt-1">You save $30</div>
               <div className="text-xs text-gray-400 mt-1">Inclusive of all taxes</div>
             </div>
             <div className="ml-auto text-right">
@@ -57,7 +57,7 @@ const DetailPage = () => {
               <div className="font-medium">Delivery in 1-3 days</div>
               <div className="text-xs text-gray-500">Shipment of 1 item</div>
             </div>
-            <div className="text-sm font-medium text-green-600">In Stock</div>
+            <div className="text-sm font-medium text-blue-700">In Stock</div>
           </div>
            {/* Quantity & Add  */}
           <div className="mt-5">
@@ -69,7 +69,7 @@ const DetailPage = () => {
                 {/* <input id="qty" type="number" value="1" min="1" max="10" className="w-16 text-center outline-none p-2" aria-label="Quantity" /> */}
                 <button id="inc" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(incrementQuantity(product.id))}>+</button>
               </div>
-              <button id="addToCart" className="ml-auto flex-1 lg:flex-none bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg px-6 py-3 shadow" onClick={()=>dispatch(addToCart(product))}>Add to Cart</button>
+              <button id="addToCart" className="ml-auto flex-1 lg:flex-none bg-blue-700 hover:bg-green-700 text-white font-semibold rounded-lg px-6 py-3 shadow" onClick={()=>dispatch(addToCart(product))}>Add to Cart</button>
             </div>
             <p className="text-xs text-gray-400 mt-2">To become a dealer: <strong className="text-gray-700">Buy 100 and above</strong></p>
           </div>
@@ -90,7 +90,7 @@ const DetailPage = () => {
             <div>
               <dt className="text-xs text-gray-500">Tags</dt>
               <dd className="mt-1">
-                <span className="inline-block px-3 py-1 rounded-full text-xs bg-green-50 text-green-700">Water</span>
+                <span className="inline-block px-3 py-1 rounded-full text-xs bg-blue-50 text-blue-700">Water</span>
               </dd>
             </div>
           </dl>
@@ -101,7 +101,7 @@ const DetailPage = () => {
             <span className="font-medium">Treatment and Chemical component</span>
             <svg id="chev" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06-.02L10 10.88l3.71-3.69a.75.75 0 111.06 1.06l-4.24 4.22a.75.75 0 01-1.06 0L5.25 8.25a.75.75 0 01-.02-1.06z" clipRule="evenodd"/></svg>
           </button>
-          <div id="detailsPanel" className="mt-3 hidden text-sm text-gray-600">
+          <div id="detailsPanel" className="mt-3 hidden text-sm text-blue-700">
             <ul className="list-disc pl-5 space-y-1">
               <li>99.99 Bacterial free</li>
               <li>Good for your health</li>
@@ -112,7 +112,7 @@ const DetailPage = () => {
          {/* Mobile sticky CTA  */}
         <div id="mobileCta" className="fixed left-0 right-0 bottom-4 px-4 lg:hidden">
           <div className="max-w-3xl mx-auto">
-            <button id="mobileAdd" className="w-full bg-green-600 text-white rounded-full py-3 font-semibold shadow-lg" onClick={()=>dispatch(addToCart(product))}> Add to Cart</button>
+            <button id="mobileAdd" className="w-full bg-blue-700 text-white rounded-full py-3 font-semibold shadow-lg" onClick={()=>dispatch(addToCart(product))}> Add to Cart</button>
           </div>
         </div>
       </aside>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 
-const Slide = ({ images, autoSlide = true, autoSlideInterval = 3000 }) => {
+const Slide = ({ images, autoSlide = true, autoSlideInterval = 6000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -22,8 +22,8 @@ const Slide = ({ images, autoSlide = true, autoSlideInterval = 3000 }) => {
   };
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto">
-      <div className="overflow-hidden relative h-64">
+    <div className="relative w-auto max-w-3xl mx-auto">
+      <div className="overflow-hidden relative h-130 w-auto">
         {images.map((image, index) => (
           <div
             key={index}

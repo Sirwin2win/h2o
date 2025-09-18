@@ -10,6 +10,7 @@ import laptop4 from '../assets/images/laptop4.avif'
 import Slide from '../components/Slide'
 // import ProductCard from '../components/ProductCard'
 import Navbar from '../components/Navbar'
+import ImageCarousel from '../components/ImageCarousel'
 
 const Home = () => {
     const products = [
@@ -24,14 +25,16 @@ const Home = () => {
     ]
 
     const images = [
-      headset1,
-      cowgirl,
-      laptop4
-    ]
+    "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png",
+    "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_t.png",
+    "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_t.png",
+    "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_t.png",
+  ];
   return (
 
     <div>
       {/* <Navbar /> */}
+      {/* <ImageCarousel /> */}
 <Slide images={images}/>
  
     <div className='grid sm:grid-cols-2 md:grid-cols-4 pt-8 gap-2'>
