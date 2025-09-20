@@ -11,6 +11,7 @@ import Slide from '../components/Slide'
 // import ProductCard from '../components/ProductCard'
 import Navbar from '../components/Navbar'
 import ImageCarousel from '../components/ImageCarousel'
+import TrashForm from '../forms/TrashForm'
 // import TopSellers from '../Sales/TopSellers'
 
 const Home = () => {
@@ -57,7 +58,10 @@ const Home = () => {
         ))}
           </div>
 
-          <ImageCarousel />
+          {/* Product Slider  */}
+
+          {/* <ImageCarousel /> */}
+          <TrashForm />
           </div>
   )
 }

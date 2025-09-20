@@ -1,10 +1,14 @@
 import React from 'react'
-import DetailPage from '../components/DetailPage'
+import RegisterForm from '../forms/RegisterForm'
+
+
+
 
 const About = () => {
   return (
-    <div>
-      <DetailPage />
+    <div className='my-10'>
+    
+    <RegisterForm />
     </div>
   )
 }

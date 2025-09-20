@@ -44,15 +44,12 @@ const [nav, setNav] = useState(false);
     // { id: 7, to: "/register", txt: "Register" },
     // { id: 8, to: "/cart", txt: v+" "+`${cartNo}`},
   ];
-
   // Handle Logout
-
   return (
     <div className="bg-white-0 z-50">
       <header className="shadow-md bg-white tracking-wide relative z-50">
             <section
               className="flex items-center flex-wrap lg:justify-center gap-4 py-2.5 sm:px-10 px-4 border-gray-200 border-b min-h-[70px]">
-      
               <div className="left-10 absolute z-50 border border-gray-300 flex items-center px-4 py-2.5 rounded max-lg:hidden focus-within:bg-transparent">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904"
                   className="cursor-pointer fill-gray-400 mr-2.5 inline-block w-[18px] h-[18px]">
@@ -61,13 +58,11 @@ const [nav, setNav] = useState(false);
                   </path>
                 </svg>
               <SearchBar />
-              </div>
-      
+              </div> 
               <a href="javascript:void(0)" className="max-sm:hidden"><img src={leather} alt="logo" className="w-36 h-10 rounded-full" />
               </a>
               <a href="javascript:void(0)" className="hidden max-sm:block"><img src={leather} alt="logo" className="w-9 rounded-full" />
               </a>
-      
               <div className="lg:absolute lg:right-10 flex items-center ml-auto space-x-8">
                 <span className="relative">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20px"
@@ -101,34 +96,31 @@ const [nav, setNav] = useState(false);
                 <div
                     className="origin-top-right absolute right-0 mt-2 w-30 
                     rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5
-                    focus:outline-none"
-                    
+                    focus:outline-none"            
                 >
                     <ul className="py-3" role="none">
                         <Link
                            to={'/register'}
-                            className="block p-4 text-sm text-gray-700 
+                            className="block p-4 text-sm text-blue-700 
                             hover:bg-gray-100"
                             role="menuitem"
                         >
                            Register
                         </Link>
                      <li>
-      <Link to={'/login'} className="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden">Login</Link>
-                     </li>
-                     
+                    <Link to={'/login'}
+                     className="block px-4 py-2 text-sm text-blue-700
+                      focus:bg-gray-100 focus:text-gray-900
+                       focus:outline-hidden">
+                        Login</Link>
+                     </li>            
                     </ul>
                 </div>
             )}
                 </div>
               </div>
             </section>
-      
             <div className="flex flex-wrap justify-center sm:px-10 px-4 py-3 relative">
-
-            
-
-
      {/* Mobile Search Bar */}
            <div className="mr-20 md:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904"
@@ -174,7 +166,7 @@ const [nav, setNav] = useState(false);
                         <li className="p-4 bg-white-0 rounded-xl m-2 cursor-pointer duration-300 hover:text-blue-700">
                           <Link
                             to={item.to}
-                            className="text-blue-500 no-underline font-serif font-bold bg-white-0"
+                            className="text-blue-700 no-underline font-serif font-bold bg-white-0"
                           >
                             {item.txt}
                           </Link>

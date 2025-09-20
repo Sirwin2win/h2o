@@ -54,7 +54,6 @@ const Categories = () => {
         </div>
       </div>
     </div>
-
     <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition overflow-hidden group">
       <div class="relative">
         <img src="https://images.unsplash.com/photo-1718309602791-8f3cc83840b7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Product Image" class="w-full h-60 object-cover group-hover:scale-105 transition-transform" />

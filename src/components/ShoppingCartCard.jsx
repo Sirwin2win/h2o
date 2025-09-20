@@ -113,7 +113,7 @@ const totalPrice = function(){
           <span>Total cost</span>
           <span>${totalPrice()}</span>
         </div>
-        <Link to={'/checkout'} className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <Link to={'/checkout'} className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Checkout
             </Link>
       </div>

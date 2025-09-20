@@ -35,14 +35,15 @@ if(status === 'faile'){
   return (
         <div className="content my-20">
       <h1 className="header text-center my-10">Product Gallery</h1>
-      <div className="container">
+      <div className="container mx-20">
         <Slider {...settings}>
+          {/* <div className="grid sm:grid-cols-2 md:grid-cols-4 pt-8 gap-2"> */}
           {products.map((product) => (
-              <div className="mx-auto mt-11 w-40 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg" key={product.id}>
+              <div className="mt-11 px-5 size-90 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg" key={product.id}>
   <img className="size-40 bg-cover object-center" src={product.image} />
   <Link to={`/product/${product.id}`} >
-  <div className="p-4">
-    <p className="mb-3 p-10 font-medium dark:text-white text-gray-900">{product.title}</p>
+  <div>
+    <p className="hidden md:block mb-3 p-10 font-medium dark:text-white text-gray-900 ">{product.title}</p>
     <p className="mb-2 text-base dark:text-gray-300 text-gray-700"></p>
     <div className="flex items-center">
       <p className="mr-2 text-lg font-semibold text-gray-900 dark:text-white">${product.price}</p>
@@ -54,6 +55,7 @@ if(status === 'faile'){
   </Link>
 </div> 
           ))}
+          {/* </div> */}
         </Slider>
       </div>
     </div>

@@ -9,10 +9,10 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Product from './pages/Product'
 import ProductDetail from './components/ProductDetail'
-import Login from './components/Login'
+import Login from './pages/Login'
 import DetailPage from './components/DetailPage'
 import ShoppingCartCard from './components/ShoppingCartCard'
-import Checkout from './components/Checkout'
+import CheckoutForm from './forms/CheckoutForm'
 
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
     <Route path='/product/:id' element={<DetailPage />} />
     <Route path='/login' element={<Login />} />
     <Route path='/cart' element={<ShoppingCartCard />} />
-    <Route path='/checkout' element={<Checkout />} />
+    <Route path='/checkout' element={<CheckoutForm />} />
       </Route>
     </Routes>
     </BrowserRouter>
