@@ -67,7 +67,7 @@ const Footer = () => {
         <ul className="space-y-2">
           <li><a href="#" className="text-white hover:text-white transition">Plot E10 phase 4, kings care
           </a></li>
-          <li><a href="#" className="text-white hover:text-white transition">hospital road, after apear1</a></li>
+          <li><a href="#" className="text-white hover:text-white transition">hospital road, after apearl</a></li>
           <li><a href="#" className="text-white hover:text-white transition">school, kubwa, abuja.</a></li>
           <li><a href="#" className="text-white hover:text-white transition">0812 414 9531</a></li>
           {/* <li><a href="#" className="text-white hover:text-white transition">Cloud Solutions</a></li> */}

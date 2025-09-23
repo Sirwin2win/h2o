@@ -1,75 +1,61 @@
-// import React, { useState, useRef } from "react";
-// import "./FlashStyle.css";
-// // import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
-// import {
-//   IoIosArrowDroprightCircle,
-//   IoIosArrowDropleftCircle,
-// } from "react-icons/io";
-// import { SlTag } from "react-icons/sl";
-// // import { Container } from "react-bootstrap";
-// // ₦
-// const ItemsSlider = ({ title, children }) => {
-//   let scrl = useRef(null);
-//   const [scrollX, setscrollX] = useState(0);
-//   const [scrollEnd, setScrollEnd] = useState(false);
+// components/Carousel.jsx
 
-//   const slide = (shift) => {
-//     scrl.current.scrollBy({
-//       left: shift,
-//       behavior: "smooth",
-//     });
+import React, { useEffect, useRef, useState } from "react";
 
-//     scrl.current.scrollLeft += shift;
-//     setscrollX(scrollX + shift);
-//     if (
-//       Math.floor(scrl.current.scrollWidth - scrl.current.scrollLeft) <=
-//       scrl.current.offsetWidth
-//     ) {
-//       setScrollEnd(true);
-//     } else {
-//       setScrollEnd(false);
-//     }
-//   };
+const ItemSlider = ({ images, interval = 4000 }) => {
+  const [current, setCurrent] = useState(0);
+  const timeoutRef = useRef(null);
 
-//   const scrollCheck = () => {
-//     setscrollX(scrl.current.scrollLeft);
-//     if (
-//       Math.floor(scrl.current.scrollWidth - scrl.current.scrollLeft) <=
-//       scrl.current.offsetWidth
-//     ) {
-//       setScrollEnd(true);
-//     } else {
-//       setScrollEnd(false);
-//     }
-//   };
+  const resetTimeout = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  };
 
-//   return (
-//     <div fluid className="my-3 py-3 item-slider-container px-20">
-//       <div className="d-flex titleColor py-2 ps-4">
-//         <SlTag size={30} className="text-warning" />
-//         <h4 className="px-3 item-title">{title}</h4>
-//       </div>
-//       <div className="item-slider">
-//         <div
-//           onClick={() => slide(-100)}
-//           className={`left-arrow-left ${scrollX < 1 ? "is-disabled-hide" : ""}`}
-//         >
-//           <IoIosArrowDropleftCircle size={50} />
-//         </div>
-//         <div ref={scrl} onScroll={scrollCheck} className="item-container">
-//           {children}
-//         </div>
-//         <div
-//           className={`right-arrow-right ${
-//             !scrollEnd ? "" : "is-disabled-hide"
-//           }`}
-//           onClick={() => slide(+100)}
-//         >
-//           <IoIosArrowDroprightCircle size={50} />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+  useEffect(() => {
+    resetTimeout();
+    timeoutRef.current = setTimeout(() => {
+      setCurrent((prevIndex) => (prevIndex + 1) % images.length);
+    }, interval);
 
-// export default ItemsSlider;
+    return () => {
+      resetTimeout();
+    };
+  }, [current, images.length, interval]);
+
+  return (
+    <div className="relative w-full overflow-hidden">
+      {/* Slides */}
+      <div
+        className="flex transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateX(-${current * 100}%)` }}
+      >
+        {images.map((img, index) => (
+          <div
+            key={index}
+            className="flex-shrink-0 w-full h-[300px] sm:h-[400px] md:h-[500px]"
+          >
+            <img
+              src={img}
+              alt={`slide-${index}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Dots */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrent(index)}
+            className={`w-3 h-3 rounded-full ${
+              current === index ? "bg-white" : "bg-gray-400"
+            }`}
+          ></button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ItemSlider;

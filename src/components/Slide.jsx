@@ -22,8 +22,8 @@ const Slide = ({ images, autoSlide = true, autoSlideInterval = 6000 }) => {
   };
 
   return (
-    <div className="relative w-auto max-w-3xl mx-auto">
-      <div className="overflow-hidden relative h-130 w-auto">
+    <div className="relative w-auto md:w-screen  mx-auto">
+      <div className="overflow-hidden relative h-150 w-screen">
         {images.map((image, index) => (
           <div
             key={index}
@@ -31,7 +31,7 @@ const Slide = ({ images, autoSlide = true, autoSlideInterval = 6000 }) => {
               index === currentIndex ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
-            <img src={image} alt={`Slide ${index}`} className="w-full h-full object-cover" />
+            <img src={image} alt={`Slide ${index}`} className="w-screen h-full object-cover" />
           </div>
         ))}
       </div>

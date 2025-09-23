@@ -13,6 +13,10 @@ import Navbar from '../components/Navbar'
 import ImageCarousel from '../components/ImageCarousel'
 import TrashForm from '../forms/TrashForm'
 // import TopSellers from '../Sales/TopSellers'
+import water1 from '../assets/images/water1.avif'
+import water2 from '../assets/images/water2.avif'
+import water3 from '../assets/images/water3.avif'
+import water4 from '../assets/images/water4.avif'
 
 const Home = () => {
     const products = [
@@ -27,10 +31,9 @@ const Home = () => {
     ]
 
     const images = [
-    "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png",
-    "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_t.png",
-    "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_t.png",
-    "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_t.png",
+    water1,
+    water4,
+    water3,
   ];
   return (
 
@@ -38,10 +41,8 @@ const Home = () => {
       {/* <Navbar /> */}
     
 <Slide images={images}/>
- 
     <div className='grid sm:grid-cols-2 md:grid-cols-4 pt-8 gap-2'>
-        {products.map((product)=>(
-            
+        {products.map((product)=>( 
               // <div key={product.id} className='h-60 w-60'> <img src={product.image}  /></div>
      <div className="mx-auto mt-11 w-60 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg" key={product.id}>
   <img className="h-48 w-full object-cover object-center" src={product.image} />
@@ -61,7 +62,7 @@ const Home = () => {
           {/* Product Slider  */}
 
           {/* <ImageCarousel /> */}
-          <TrashForm />
+          {/* <TrashForm /> */}
           </div>
   )
 }

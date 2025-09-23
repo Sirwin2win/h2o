@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import leather from "../assets/images/WIN1.jpg";
+import logo from "../assets/images/logo.jpg";
 import { BiMenu, BiX } from "react-icons/bi";
 import { IoIosArrowDown } from "react-icons/io";
 // import { useRouter } from "next/navigation";
@@ -59,9 +59,9 @@ const [nav, setNav] = useState(false);
                 </svg>
               <SearchBar />
               </div> 
-              <a href="javascript:void(0)" className="max-sm:hidden"><img src={leather} alt="logo" className="w-36 h-10 rounded-full" />
+              <a href="javascript:void(0)" className="max-sm:hidden"><img src={logo} alt="logo" className="w-36 h-20 rounded-full" />
               </a>
-              <a href="javascript:void(0)" className="hidden max-sm:block"><img src={leather} alt="logo" className="w-9 rounded-full" />
+              <a href="javascript:void(0)" className="hidden max-sm:block"><img src={logo} alt="logo" className="w-9 rounded-full" />
               </a>
               <div className="lg:absolute lg:right-10 flex items-center ml-auto space-x-8">
                 <span className="relative">
