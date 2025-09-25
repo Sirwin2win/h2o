@@ -4,6 +4,7 @@ import { FaFacebookF } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import logo from '../assets/images/logo.jpg'
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -14,9 +15,10 @@ const Footer = () => {
       {/* Company Info  */}
       <div className="space-y-4">
         <div className="flex items-center">
-          <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          {/* <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-          </svg>
+          </svg> */}
+          <img src={logo} alt="Logo" className="h-15 rounded-lg" />
           <span className="ml-2 text-xl font-bold">Buywater</span>
         </div>
         <p className="text-white">Healthy living begins with healthy water consumption</p>
@@ -65,11 +67,11 @@ const Footer = () => {
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Contact Us</h3>
         <ul className="space-y-2">
-          <li><a href="#" className="text-white hover:text-white transition">Plot E10 phase 4, kings care
+          <li><a href="#" className="text-white hover:text-white transition">Plot E10 Ogbai Crescent
           </a></li>
-          <li><a href="#" className="text-white hover:text-white transition">hospital road, after apearl</a></li>
-          <li><a href="#" className="text-white hover:text-white transition">school, kubwa, abuja.</a></li>
-          <li><a href="#" className="text-white hover:text-white transition">0812 414 9531</a></li>
+          <li><a href="#" className="text-white hover:text-white transition">Phase 4, After Kings Care Hospital,</a></li>
+          <li><a href="#" className="text-white hover:text-white transition">Kubwa, Abuja-FCT</a></li>
+          <li><a href="#" className="text-white hover:text-white transition">08027000043</a></li>
           {/* <li><a href="#" className="text-white hover:text-white transition">Cloud Solutions</a></li> */}
         </ul>
       </div>

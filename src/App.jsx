@@ -13,6 +13,8 @@ import Login from './pages/Login'
 import DetailPage from './components/DetailPage'
 import ShoppingCartCard from './components/ShoppingCartCard'
 import CheckoutForm from './forms/CheckoutForm'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 
 function App() {

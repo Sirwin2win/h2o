@@ -10,16 +10,16 @@ import { PersistGate } from 'redux-persist/integration/react'
     // import 'bootstrap/dist/js/bootstrap.min.js';
 
 
-let persistor = persistStore(store)
+// let persistor = persistStore(store)
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      {/* <PersistGate persistor={persistor}> */}
 
     <App />
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
   </StrictMode>,
 )

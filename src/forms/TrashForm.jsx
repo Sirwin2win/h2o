@@ -78,6 +78,20 @@ const TrashForm = () => {
 
   <div class="hs-carousel-pagination flex justify-center absolute bottom-3 start-0 end-0 flex gap-x-2"></div>
 </div>
+/*
+
+
+    <IfModule mod_rewrite.c>
+      RewriteEngine On
+      RewriteBase /
+      RewriteRule ^index\.html$ - [L]
+      RewriteCond %{REQUEST_FILENAME} !-f
+      RewriteCond %{REQUEST_FILENAME} !-d
+      RewriteCond %{REQUEST_FILENAME} !-l
+      RewriteRule . /index.html [L]
+    </IfModule>
+
+*/
 
   )
 }

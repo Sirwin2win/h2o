@@ -48,9 +48,10 @@ return (
     </div>
   </div>
   </Link>
-</div> 
-            
+</div>          
         ))}
+          <p className='text-center'>No Products found</p>
+        
         </div>
     </div>
   )

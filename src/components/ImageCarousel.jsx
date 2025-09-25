@@ -16,9 +16,7 @@ const ImageCarousel = () => {
   infinite: true,
   speed: 500,
   slidesToShow: 3,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 1000,
+  slidesToScroll: 1
 };
  
 useEffect(()=>{
@@ -33,24 +31,21 @@ if(status === 'faile'){
   return <div>Error : {error}</div>
 }
   return (
-        <div className="content my-20">
+        <div className="w-3/4 m-auto">
       <h1 className="header text-center my-10">Product Gallery</h1>
-      <div className="container mx-20">
+      <div className="mt-20">
         <Slider {...settings}>
           {/* <div className="grid sm:grid-cols-2 md:grid-cols-4 pt-8 gap-2"> */}
           {products.map((product) => (
-              <div className="mt-11 px-5 size-90 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg" key={product.id}>
-  <img className="size-40 bg-cover object-center" src={product.image} />
+    <div className="bg-white h-[450px] text-black rounded-xl" key={product.id}>
+      <div className="h-56 bg-indigo-500 flex justify-center items-center rounded-t-xl">
+  <img className="size-40 rounded-full" src={product.image} />
+      </div>
   <Link to={`/product/${product.id}`} >
-  <div>
-    <p className="hidden md:block mb-3 p-10 font-medium dark:text-white text-gray-900 ">{product.title}</p>
-    <p className="mb-2 text-base dark:text-gray-300 text-gray-700"></p>
-    <div className="flex items-center">
-      <p className="mr-2 text-lg font-semibold text-gray-900 dark:text-white">${product.price}</p>
-      <p className="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$25.00</p>
-      <p className="ml-auto text-base font-medium text-blue-700">20% off</p>
-     
-    </div>
+  <div className="flex flex-col items-center justify-center gap-4 p-4">
+    <p className="text-xl font-semibold">{product.title}</p>
+      <p className="text-center">${product.price}</p>
+      <button className="bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl">Read More</button> 
   </div>
   </Link>
 </div> 

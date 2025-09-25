@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    items:[],
+    // items:[],
+    items: JSON.parse(localStorage.getItem('cartItems')) || [],
     totalQuantity:0,
     totalAmount:0
 }
@@ -20,12 +21,18 @@ const cartSlice = createSlice({
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }
+      
+      // Save updated cart to localStorage
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
     },
  
         incrementQuantity: (state, action) => {
             const item = state.items.find((item) => item.id === action.payload);
             item.quantity++;
             state.totalQuantity += 1
+            
+      // Save updated cart to localStorage
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
         },
         decrementQuantity: (state, action) => {
           const id = action.payload;
@@ -36,6 +43,9 @@ const cartSlice = createSlice({
                 item.quantity--;
                 state.totalQuantity -= 1
             }
+            
+      // Save updated cart to localStorage
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
         },
         removeItem: (state, action) => {
             const id = action.payload;
@@ -51,6 +61,9 @@ const cartSlice = createSlice({
         }
         state.totalAmount = state.items.reduce((acc, item) => acc + item.totalPrice, 0);
       }
+      
+      // Save updated cart to localStorage
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
         },
 
             // Action to clear the entire cart
@@ -58,6 +71,9 @@ const cartSlice = createSlice({
       state.items = [];
       state.totalQuantity = 0;
       state.totalAmount = 0;
+      
+      // Save updated cart to localStorage
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
     },
     }
 })

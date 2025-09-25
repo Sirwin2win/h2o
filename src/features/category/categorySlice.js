@@ -1,117 +1,173 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import categoryService from './categoryService'
+// src/features/products/productSlice.js
 
-const initialState = {
-  categories: [],
-  isError: false,
-  isSuccess: false,
-  isLoading: false,
-  message: '',
-}
-// Create new complaint
-export const createCategory = createAsyncThunk(
-  'categories/create',
-  async (categoryData, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.user.accessToken
-      return await categoryService.createCategory(categoryData, token)
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString()
-      return thunkAPI.rejectWithValue(message)
-    }
-  }
-)
-// Get user complaints
-export const getCategories = createAsyncThunk(
-  'categories/getAll',
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import * as categoryAPI from './categoryApi';
+
+// Thunks
+
+export const fetchCategories = createAsyncThunk(
+  'categories/fetchCategories',
   async (_, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.accessToken
-      return await categoryService.getCategories(token)
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString()
-      return thunkAPI.rejectWithValue(message)
+      const response = await productAPI.fetchCategoriesAPI();
+      return response.data;  // assuming your API returns array of products
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
     }
   }
-)
-// Delete user complaint
-export const deleteCategory = createAsyncThunk(
-  'categories/delete',
+);
+
+export const fetchCategory = createAsyncThunk(
+  'categories/fetchCategory',
   async (id, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.accessToken
-      return await categoryService.deleteCategory(id, token)
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString()
-      return thunkAPI.rejectWithValue(message)
+      const response = await categoryAPI.fetchCategoryByIdAPI(id);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
     }
   }
-)
-export const categorySlice = createSlice({
-  name: 'category',
-  initialState,
+);
+
+export const addCategory = createAsyncThunk(
+  'categories/addCatgeory',
+  async (category, thunkAPI) => {
+    try {
+      const response = await categoryAPI.createCategoryAPI(category);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+
+export const updateCategory = createAsyncThunk(
+  'categories/updateCategory',
+  async ({ id, updatedFields }, thunkAPI) => {
+    try {
+      const response = await categoryAPI.updateCategoryAPI(id, updatedFields);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+
+export const deleteCategory = createAsyncThunk(
+  'categories/deleteCategory',
+  async (id, thunkAPI) => {
+    try {
+      await categoryAPI.deleteCategoryAPI(id);
+      return id;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+
+// Slice
+
+const categorySlice = createSlice({
+  name: 'categories',
+  initialState: {
+    categories: [],
+    currentCategory: null,  // for editing / viewing one
+    status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    error: null,
+  },
   reducers: {
-    reset: (state) => initialState,
+    // optional non-async actions
+    clearCurrentCategory(state) {
+      state.currentCategory = null;
+    }
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createCategory.pending, (state) => {
-        state.isLoading = true
+      // fetch all products
+      .addCase(fetchCategories.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
       })
-      .addCase(createCategory.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.isSuccess = true
-        state.complaints.push(action.payload)
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.categories = action.payload;
       })
-      .addCase(createCategory.rejected, (state, action) => {
-        state.isLoading = false
-        state.isError = true
-        state.message = action.payload
+      .addCase(fetchCategories.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
       })
-      .addCase(getCategories.pending, (state) => {
-        state.isLoading = true
+
+      // fetch one product
+      .addCase(fetchCategory.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
       })
-      .addCase(getCategories.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.isSuccess = true
-        state.complaints = action.payload
+      .addCase(fetchCategory.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.currentCategory = action.payload;
       })
-      .addCase(getCategories.rejected, (state, action) => {
-        state.isLoading = false
-        state.isError = true
-        state.message = action.payload
+      .addCase(fetchCategory.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
       })
+
+      // add product
+      .addCase(addCategory.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(addCategory.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.categories.push(action.payload);
+      })
+      .addCase(addCategory.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+
+      // update Category
+      .addCase(updateCategory.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(updateCategory.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const updated = action.payload;
+        const index = state.categories.findIndex(p => p.id === updated.id);
+        if (index !== -1) {
+          state.categories[index] = updated;
+        }
+        // if currentCategory is the one updated, update that too
+        if (state.currentCategory && state.currentCategory.id === updated.id) {
+          state.currentCategory = updated;
+        }
+      })
+      .addCase(updateCategory.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+
+      // delete Category
       .addCase(deleteCategory.pending, (state) => {
-        state.isLoading = true
+        state.status = 'loading';
+        state.error = null;
       })
       .addCase(deleteCategory.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.isSuccess = true
-        state.complaints = state.complaints.filter(
-          (complaint) => complaint._id !== action.payload.id
-        )
+        state.status = 'succeeded';
+        const id = action.payload;
+        state.categories = state.categories.filter(p => p.id !== id);
+        // clear currentCategory if it was deleted
+        if (state.currentCategory && state.currentCategory.id === id) {
+          state.currentCategory = null;
+        }
       })
       .addCase(deleteCategory.rejected, (state, action) => {
-        state.isLoading = false
-        state.isError = true
-        state.message = action.payload
-      })
-  },
-})
-export const { reset } = categorySlice.actions
-export default categorySlice.reducer
+        state.status = 'failed';
+        state.error = action.payload;
+      });
+  }
+});
+
+export const { clearCurrentCategory } = categorySlice.actions;
+
+export default categorySlice.reducer;

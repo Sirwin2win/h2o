@@ -1,61 +1,77 @@
-// components/Carousel.jsx
+import React, { useState } from "react";
+import Slider from "react-slick";
+import bottle30 from '../assets/images/bottle30.avif'
+import bottle35 from '../assets/images/bottle35.avif'
+import bottle40 from '../assets/images/bottle40.avif'
+import bottle50 from '../assets/images/bottle50.avif'
+import bottle75 from '../assets/images/bottle75.avif'
+import bottled from '../assets/images/bottled.avif'
 
-import React, { useEffect, useRef, useState } from "react";
-
-const ItemSlider = ({ images, interval = 4000 }) => {
-  const [current, setCurrent] = useState(0);
-  const timeoutRef = useRef(null);
-
-  const resetTimeout = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+const ItemSlider = () => {
+  var settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
-
-  useEffect(() => {
-    resetTimeout();
-    timeoutRef.current = setTimeout(() => {
-      setCurrent((prevIndex) => (prevIndex + 1) % images.length);
-    }, interval);
-
-    return () => {
-      resetTimeout();
-    };
-  }, [current, images.length, interval]);
-
   return (
-    <div className="relative w-full overflow-hidden">
-      {/* Slides */}
-      <div
-        className="flex transition-transform duration-700 ease-in-out"
-        style={{ transform: `translateX(-${current * 100}%)` }}
-      >
-        {images.map((img, index) => (
-          <div
-            key={index}
-            className="flex-shrink-0 w-full h-[300px] sm:h-[400px] md:h-[500px]"
-          >
-            <img
-              src={img}
-              alt={`slide-${index}`}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrent(index)}
-            className={`w-3 h-3 rounded-full ${
-              current === index ? "bg-white" : "bg-gray-400"
-            }`}
-          ></button>
-        ))}
-      </div>
+      <div className="slider-container my-10">
+      <Slider {...settings}>
+        <div>
+          <img src={bottled}  alt=""/>
+        </div>
+        <div>
+           <img src={bottle30}  alt=""/>
+        </div>
+        <div>
+           <img src={bottle35}  alt=""/>
+        </div>
+        <div>
+           <img src={bottle40}  alt=""/>
+        </div>
+        <div>
+          <img src={bottle50}  alt=""/>
+        </div>
+        <div>
+           <img src={bottle75}  alt=""/>
+        </div>
+        {/* <div>
+          <h3>7</h3>
+        </div>
+        <div>
+          <h3>8</h3>
+        </div> */}
+      </Slider>
     </div>
-  );
-};
+  )
+}
 
-export default ItemSlider;
+export default ItemSlider

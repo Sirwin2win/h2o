@@ -9,14 +9,14 @@ import headset3 from '../assets/images/headset3.avif'
 import laptop4 from '../assets/images/laptop4.avif'
 import Slide from '../components/Slide'
 // import ProductCard from '../components/ProductCard'
-import Navbar from '../components/Navbar'
-import ImageCarousel from '../components/ImageCarousel'
-import TrashForm from '../forms/TrashForm'
 // import TopSellers from '../Sales/TopSellers'
 import water1 from '../assets/images/water1.avif'
 import water2 from '../assets/images/water2.avif'
 import water3 from '../assets/images/water3.avif'
 import water4 from '../assets/images/water4.avif'
+import FeatureSection from '../components/FeatureSection'
+import ItemSlider from '../components/ItemSlider'
+import CardSlide from '../components/CardSlide'
 
 const Home = () => {
     const products = [
@@ -41,6 +41,7 @@ const Home = () => {
       {/* <Navbar /> */}
     
 <Slide images={images}/>
+ <FeatureSection />
     <div className='grid sm:grid-cols-2 md:grid-cols-4 pt-8 gap-2'>
         {products.map((product)=>( 
               // <div key={product.id} className='h-60 w-60'> <img src={product.image}  /></div>
@@ -58,8 +59,10 @@ const Home = () => {
 </div>             
         ))}
           </div>
+         
 
-          {/* Product Slider  */}
+     {/* <ItemSlider /> */}
+     <CardSlide />
 
           {/* <ImageCarousel /> */}
           {/* <TrashForm /> */}
