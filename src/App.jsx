@@ -15,6 +15,7 @@ import ShoppingCartCard from './components/ShoppingCartCard'
 import CheckoutForm from './forms/CheckoutForm'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Manage from './pages/Manage'
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
     <Route path='/login' element={<Login />} />
     <Route path='/cart' element={<ShoppingCartCard />} />
     <Route path='/checkout' element={<CheckoutForm />} />
+    <Route path='/manage' element={<Manage />} />
       </Route>
     </Routes>
     </BrowserRouter>

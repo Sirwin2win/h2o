@@ -19,7 +19,7 @@ const CategoryForm = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // const fullName = `${user.firstName} ${user.lastName}`;
     const categoryData = {
@@ -45,7 +45,7 @@ const CategoryForm = () => {
             </p>
           </div>
            {/* Form  */}
-          <form className="space-y-6" onClick={onSubmit}>
+          <form className="space-y-6">
              {categories.error && <p style={{ color: 'red' }}>{categories.error}</p>}
             <div>
               <label className="block text-sm font-medium text-gray-700" htmlFor="category">Product Category</label>
@@ -60,7 +60,7 @@ const CategoryForm = () => {
             </div>
             <button
               type="submit"
-              
+              onClick={handleSubmit}
               disabled={categories.status === 'loading'}
               className="w-full flex justify-center py-2 px-4 sm:py-3 border border-transparent rounded-lg shadow-sm text-sm sm:text-base font-medium text-white bg-blue-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >

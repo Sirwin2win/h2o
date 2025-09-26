@@ -1,5 +1,5 @@
    import { configureStore } from '@reduxjs/toolkit';
-    import productReducer from "../features//productSlice"
+    import productReducer from "../features/productSlice"
     import cartSlice from "../features/cartSlice"
     import detailSlice from "../features/detailReducer";
     // import storage from 'redux-persist/lib/storage'
@@ -29,7 +29,7 @@
            auth: authReducer,
         products: productReducer,
         cart : cartSlice,
-         product: detailSlice,
+         // product: detailSlice,
          filter: filterReducer,
          categories:categoryReducer,
          mails: mailReducer,

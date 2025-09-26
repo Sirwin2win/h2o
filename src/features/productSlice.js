@@ -90,7 +90,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.items = action.payload;
+        state.products = action.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = 'failed';
@@ -118,7 +118,7 @@ const productSlice = createSlice({
       })
       .addCase(addProduct.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.items.push(action.payload);
+        state.products.push(action.payload);
       })
       .addCase(addProduct.rejected, (state, action) => {
         state.status = 'failed';
@@ -133,9 +133,9 @@ const productSlice = createSlice({
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.status = 'succeeded';
         const updated = action.payload;
-        const index = state.items.findIndex(p => p.id === updated.id);
+        const index = state.products.findIndex(p => p.id === updated.id);
         if (index !== -1) {
-          state.items[index] = updated;
+          state.products[index] = updated;
         }
         // if currentProduct is the one updated, update that too
         if (state.currentProduct && state.currentProduct.id === updated.id) {
@@ -155,7 +155,7 @@ const productSlice = createSlice({
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.status = 'succeeded';
         const id = action.payload;
-        state.items = state.items.filter(p => p.id !== id);
+        state.products = state.products.filter(p => p.id !== id);
         // clear currentProduct if it was deleted
         if (state.currentProduct && state.currentProduct.id === id) {
           state.currentProduct = null;

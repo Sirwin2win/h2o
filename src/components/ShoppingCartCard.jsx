@@ -18,21 +18,21 @@ const totalPrice = function(){
   return sum
 }
 
-
+// console.log(items)
   return (
    <div className="container mx-auto mt-10">
   <div className="sm:flex shadow-md my-10">
     <div className="  w-full  sm:w-3/4 bg-white px-10 py-10">
       <div className="flex justify-between border-b pb-8">
         <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-        <h2 className="font-semibold text-2xl">{cartNo} Items</h2>
+        <h2 className="font-semibold text-2xl">{items.length} Item(s)</h2>
       </div>
         {items.map((item)=>(
             
                      <div className="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50" key={item.id}>
         <div className="md:w-4/12 2xl:w-1/4 w-full">
-          <img src={item.image} alt="Black Leather Purse" className="h-full object-center object-cover md:block hidden" />
-          <img src={item.image} alt="Black Leather Purse" className="md:hidden w-full h-full object-center object-cover" />
+          <img src={`https://api.buywaterh2o.com/${item.image}`} alt="Black Leather Purse" className="h-full object-center object-cover md:block hidden" />
+          <img src={`https://api.buywaterh2o.com/${item.image}`} alt="Black Leather Purse" className="md:hidden w-full h-full object-center object-cover" />
         </div>
         <div className="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
           <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">RF293</p>
@@ -45,7 +45,7 @@ const totalPrice = function(){
               </select> */}
           </div>
           <p className="text-xs leading-3 text-gray-600 pt-2">Quantity: {item.quantity}</p>
-          <p className="text-xs leading-3 text-gray-600 py-4">Price: {item.price}</p>
+          <p className="text-xs leading-3 text-gray-600 py-4">Price: ${item.price}</p>
           <p className="w-96 text-xs leading-3 text-gray-600">Composition: 100% calf leather</p>
             <div className="flex items-center rounded-lg border overflow-hidden mt-10 w-30">
           
@@ -80,7 +80,7 @@ const totalPrice = function(){
     <div id="summary" className=" w-full   sm:w-1/4   md:w-1/2     px-8 py-10">
       <h1 className="font-semibold text-2xl border-b pb-8">Order Summary</h1>
       <div className="flex justify-between mt-10 mb-5">
-        <span className="font-semibold text-sm uppercase">Number of Items : <span> {cartNo}</span></span>
+        <span className="font-semibold text-sm uppercase">Number of Items : <span> {items.length}</span></span>
         <span className="font-semibold text-sm">${totalPrice()}</span>
       </div>
       {/* <div>

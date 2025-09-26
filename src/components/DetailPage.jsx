@@ -1,17 +1,17 @@
 import React,{useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 // import { useGetProductByIdQuery } from "../features/apiSlice";
-import { getProductById } from '../features/detailReducer'
+import { fetchProduct } from '../features/productSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, incrementQuantity, decrementQuantity, removeItem } from '../features/cartSlice'
 
 const DetailPage = () => {
    const dispatch = useDispatch()
-    const {data:product, isLoading,error} = useSelector((state)=>state.product)
+    const {currentProduct, isLoading,error} = useSelector((state)=>state.products)
     const {id} = useParams()
     useEffect(()=>{
-        dispatch(getProductById(id))
-        // console.log(product)
+        dispatch(fetchProduct(id))
+        console.log(currentProduct)
     },[dispatch,id])
   return (
    <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -20,27 +20,27 @@ const DetailPage = () => {
         <div className="rounded-xl overflow-hidden bg-white p-6 shadow-sm">
           <div className="relative">
             <span className="absolute left-4 top-4 inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white shadow">6% OFF</span>
-            <img src={product.image} alt="Plums" className="w-full h-96 object-cover rounded-lg" />
+            <img src={`https://api.buywaterh2o.com/${currentProduct.image}`} alt="Plums" className="w-full h-96 object-cover rounded-lg" />
           </div>
           <div className="mt-4 flex gap-3 items-center">
             <div className="w-16 h-16 rounded-md border p-1 flex items-center justify-center bg-white">
-              <img src={product.image} alt="thumb" className="w-full h-full  object-cover rounded-sm" />
+              <img src={`https://api.buywaterh2o.com/${currentProduct.image}`} alt="thumb" className="w-full h-full  object-cover rounded-sm" />
             </div>
-            <div className="text-sm text-gray-500">{product.title}</div>
+            <div className="text-sm text-gray-500">{currentProduct.title}</div>
           </div>
         </div>
         <div className="bg-white rounded-xl p-4 shadow-sm">
           <h3 className="text-sm font-semibold text-gray-700 mb-2">About this product</h3>
-          <p className="text-sm text-gray-600 leading-relaxed"> {product.description}</p>
+          <p className="text-sm text-gray-600 leading-relaxed"> {currentProduct.description}</p>
         </div>
       </div>
        {/* RIGHT: Product Info  */}
       <aside className="sticky top-6">
         <div className="bg-white rounded-xl shadow p-6 lg:p-8">
-          <h5 className="text-2xl lg:text-3xl font-extrabold leading-tight">{product.category}</h5>
+          <h5 className="text-2xl lg:text-3xl font-extrabold leading-tight">{currentProduct.categoryId}</h5>
           <div className="mt-4 flex items-end gap-4">
             <div>
-              <div className="text-3xl lg:text-4xl font-extrabold price-shadow">${product.price}</div>
+              <div className="text-3xl lg:text-4xl font-extrabold price-shadow">${currentProduct.price}</div>
               <div className="text-sm text-gray-400 line-through">$80.00</div>
               <div className="text-sm text-blue-700 font-medium mt-1">You save $30</div>
               <div className="text-xs text-gray-400 mt-1">Inclusive of all taxes</div>
@@ -67,9 +67,9 @@ const DetailPage = () => {
                 {/* <button id="addToCart" className="ml-auto flex-1 lg:flex-none  text-blue-700 font-semibold rounded-lg px-6 py-3 shadow">Continue Shopping</button> */}
                 <button id="dec" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(decrementQuantity())}>−</button>
                 {/* <input id="qty" type="number" value="1" min="1" max="10" className="w-16 text-center outline-none p-2" aria-label="Quantity" /> */}
-                <button id="inc" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(incrementQuantity(product.id))}>+</button>
+                <button id="inc" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(incrementQuantity(currentProduct.id))}>+</button>
               </div>
-              <button id="addToCart" className="ml-auto flex-1 lg:flex-none bg-blue-700 hover:bg-blue-700 text-white font-semibold rounded-lg px-6 py-3 shadow" onClick={()=>dispatch(addToCart(product))}>Add to Cart</button>
+              <button id="addToCart" className="ml-auto flex-1 lg:flex-none bg-blue-700 hover:bg-blue-700 text-white font-semibold rounded-lg px-6 py-3 shadow" onClick={()=>dispatch(addToCart(currentProduct))}>Add to Cart</button>
             </div>
             <p className="text-xs text-gray-400 mt-2">To become a dealer: <strong className="text-gray-700">Buy 100 and above</strong></p>
           </div>

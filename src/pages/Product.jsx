@@ -35,7 +35,7 @@ return (
        <div className='grid sm:grid-cols-2 md:grid-cols-4 pt-8 gap-2'>
         {filteredProducts.map((product)=>(
     <div className="mx-auto mt-11 w-60 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg" key={product.id}>
-  <img className="h-48 w-full bg-cover object-center" src={product.image} />
+  <img className="h-48 w-full bg-cover object-center" src={`https://api.buywaterh2o.com/${product.image}`} />
   <Link to={`/product/${product.id}`} >
   <div className="p-4">
     <h2 className="mb-2 text-lg font-medium dark:text-white text-gray-900">{product.title}</h2>
@@ -50,7 +50,7 @@ return (
   </Link>
 </div>          
         ))}
-          <p className='text-center'>No Products found</p>
+          {/* <p className='text-center'>No Products found</p> */}
         
         </div>
     </div>
