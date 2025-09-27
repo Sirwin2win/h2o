@@ -108,7 +108,7 @@ const navigate = useNavigate();
 
              {/* Password  */}
                 <div className="mb-6">
-          <p>Upload Evidence of Payment</p>
+          <p>Upload Product</p>
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="image"

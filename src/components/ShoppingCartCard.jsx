@@ -25,7 +25,7 @@ const totalPrice = function(){
     <div className="  w-full  sm:w-3/4 bg-white px-10 py-10">
       <div className="flex justify-between border-b pb-8">
         <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-        <h2 className="font-semibold text-2xl">{items.length} Item(s)</h2>
+        <h2 className="font-semibold text-2xl">{cartNo} Item(s)</h2>
       </div>
         {items.map((item)=>(
             
@@ -35,7 +35,7 @@ const totalPrice = function(){
           <img src={`https://api.buywaterh2o.com/${item.image}`} alt="Black Leather Purse" className="md:hidden w-full h-full object-center object-cover" />
         </div>
         <div className="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
-          <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">RF293</p>
+          <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">S/N</p>
           <div className="flex items-center justify-between w-full">
             <p className="text-base font-black leading-none text-gray-800">{item.title}</p>
             {/* <select aria-label="Select quantity" className="py-2 px-1 border border-gray-200 mr-6 focus:outline-none">
@@ -45,7 +45,7 @@ const totalPrice = function(){
               </select> */}
           </div>
           <p className="text-xs leading-3 text-gray-600 pt-2">Quantity: {item.quantity}</p>
-          <p className="text-xs leading-3 text-gray-600 py-4">Price: ${item.price}</p>
+          <p className="text-xs leading-3 text-gray-600 py-4">Price: ₦{item.price}</p>
           <p className="w-96 text-xs leading-3 text-gray-600">Composition: 100% calf leather</p>
             <div className="flex items-center rounded-lg border overflow-hidden mt-10 w-30">
           
@@ -62,7 +62,7 @@ const totalPrice = function(){
               <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">Add to favorites</p>
               <button className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer" onClick={()=>dispatch(removeItem(item.id))}>Remove</button>
             </div>
-            <p className="text-base font-black leading-none text-gray-800 ml-9">Price x Quantity: ${item.price*item.quantity}</p>
+            <p className="text-base font-black leading-none text-gray-800 ml-9">Price x Quantity: ₦{item.price*item.quantity}</p>
             
           </div>
         </div>
@@ -80,8 +80,8 @@ const totalPrice = function(){
     <div id="summary" className=" w-full   sm:w-1/4   md:w-1/2     px-8 py-10">
       <h1 className="font-semibold text-2xl border-b pb-8">Order Summary</h1>
       <div className="flex justify-between mt-10 mb-5">
-        <span className="font-semibold text-sm uppercase">Number of Items : <span> {items.length}</span></span>
-        <span className="font-semibold text-sm">${totalPrice()}</span>
+        <span className="font-semibold text-sm uppercase">Number of Items : <span> {cartNo}</span></span>
+        <span className="font-semibold text-sm">₦{totalPrice()}</span>
       </div>
       {/* <div>
         <label className="font-medium inline-block mb-3 text-sm uppercase">
@@ -111,7 +111,7 @@ const totalPrice = function(){
       <div className="border-t mt-8">
         <div className="flex font-semibold justify-between py-6 text-sm uppercase">
           <span>Total cost</span>
-          <span>${totalPrice()}</span>
+          <span>₦{totalPrice()}</span>
         </div>
         <Link to={'/checkout'} className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Checkout

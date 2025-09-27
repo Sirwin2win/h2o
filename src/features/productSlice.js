@@ -67,19 +67,23 @@ export const deleteProduct = createAsyncThunk(
 
 // Slice
 
+
 const productSlice = createSlice({
   name: 'products',
   initialState: {
     products: [],
-    currentProduct: null,  // for editing / viewing one
+    currentProduct: 0,  // for editing / viewing one
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
   },
   reducers: {
     // optional non-async actions
-    clearCurrentProduct(state) {
-      state.currentProduct = null;
-    }
+      setCurrentProduct: (state, action) => {
+    state.currentProduct = action.payload;
+  },
+    // clearCurrentProduct(state) {
+    //   state.currentProduct = null;
+    // }
   },
   extraReducers: (builder) => {
     builder
@@ -104,7 +108,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProduct.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.currentProduct = action.payload;
+       state.currentProduct = action.payload;
       })
       .addCase(fetchProduct.rejected, (state, action) => {
         state.status = 'failed';
@@ -154,8 +158,9 @@ const productSlice = createSlice({
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        const id = action.payload;
-        state.products = state.products.filter(p => p.id !== id);
+        // const id = action.payload;
+        state.products = state.products.filter(p => p.id !== action.payload);
+        // state.products = state.products.filter(p => p.id !== id);
         // clear currentProduct if it was deleted
         if (state.currentProduct && state.currentProduct.id === id) {
           state.currentProduct = null;

@@ -1,9 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// const things = localStorage.getItem('cartItems')
+// let QTY = 0
+// for(let i =0; i<things.length; i++){
+//   QTY += Number(things[i].quantity)
+// }
+
 const initialState = {
     // items:[],
     items: JSON.parse(localStorage.getItem('cartItems')) || [],
-    totalQuantity:0,
+    totalQuantity:1,
     totalAmount:0
 }
 
@@ -14,12 +20,14 @@ const cartSlice = createSlice({
     reducers:{
         addToCart: (state, action) => {
       const existingItem = state.items.find(item => item.id === action.payload.id);
-       state.totalQuantity += 1
+       
       if (existingItem) {
         existingItem.quantity += 1;
+        state.totalQuantity += 1
        
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
+        state.totalQuantity += 1
       }
       
       // Save updated cart to localStorage

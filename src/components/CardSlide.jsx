@@ -65,7 +65,7 @@ const data = [
                 padding: "10px",
                 textAlign: "center",
                 background: "#fff",
-                marginLeft:"30px"
+                marginLeft:"20px"
               }}
             >
             {/* <div
@@ -95,8 +95,8 @@ const data = [
       </Slider>
 
       {/* Custom Controls */}
-    <FaChevronCircleLeft onClick={prev} style={{ ...navButtonStyle, left: "-30px" }}/>
-      <FaChevronCircleRight onClick={next} style={{ ...navButtonStyle, right: "-30px"  }}/>
+    <FaChevronCircleLeft onClick={prev} style={{ ...navButtonStyle, left: "0px" }}/>
+      <FaChevronCircleRight onClick={next} style={{ ...navButtonStyle, right: "-5px"  }}/>
     </div>
       );
     };

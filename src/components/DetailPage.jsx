@@ -7,12 +7,24 @@ import { addToCart, incrementQuantity, decrementQuantity, removeItem } from '../
 
 const DetailPage = () => {
    const dispatch = useDispatch()
-    const {currentProduct, isLoading,error} = useSelector((state)=>state.products)
     const {id} = useParams()
+    const {currentProduct, status,error} = useSelector((state)=>state.products)
+    // console.log(currentProduct)
+    // console.log(id)
+   
     useEffect(()=>{
-        dispatch(fetchProduct(id))
-        console.log(currentProduct)
+       if(id){
+          dispatch(fetchProduct(id))
+        }
+        // console.log(currentProduct)
     },[dispatch,id])
+
+    if(status === "loading"){
+  return <div>Loading...</div>
+}
+if(status === 'faile'){
+  return <div>Error : {error}</div>
+}else{
   return (
    <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
        {/* LEFT: Images  */}
@@ -40,9 +52,9 @@ const DetailPage = () => {
           <h5 className="text-2xl lg:text-3xl font-extrabold leading-tight">{currentProduct.categoryId}</h5>
           <div className="mt-4 flex items-end gap-4">
             <div>
-              <div className="text-3xl lg:text-4xl font-extrabold price-shadow">${currentProduct.price}</div>
-              <div className="text-sm text-gray-400 line-through">$80.00</div>
-              <div className="text-sm text-blue-700 font-medium mt-1">You save $30</div>
+              <div className="text-3xl lg:text-4xl font-extrabold price-shadow">₦{currentProduct.price}</div>
+              <div className="text-sm text-gray-400 line-through">₦0.00</div>
+              <div className="text-sm text-blue-700 font-medium mt-1">You save ₦0</div>
               <div className="text-xs text-gray-400 mt-1">Inclusive of all taxes</div>
             </div>
             <div className="ml-auto text-right">
@@ -118,5 +130,6 @@ const DetailPage = () => {
       </aside>
     </section>
   )
+}
 }
 export default DetailPage

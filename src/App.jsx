@@ -16,6 +16,7 @@ import CheckoutForm from './forms/CheckoutForm'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Manage from './pages/Manage'
+import EditProductForm from './forms/EditProductForm'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
     <Route path='/product' element={<Product />} />
     {/* <Route path='/product/:id' element={<ProductDetail />} /> */}
     <Route path='/product/:id' element={<DetailPage />} />
+    <Route path='/edit/:id' element={<EditProductForm />} />
     <Route path='/login' element={<Login />} />
     <Route path='/cart' element={<ShoppingCartCard />} />
     <Route path='/checkout' element={<CheckoutForm />} />
