@@ -38,7 +38,7 @@ const [nav, setNav] = useState(false);
     { id: 2, to: "/about", txt: "About" },
     { id: 3, to: "/contact", txt: "Contact" },
     { id: 4, to: "/product", txt: "Product" },
-    { id: 5, to: "/manage", txt: "Manage" },
+    // { id: 5, to: "/manage", txt: "Manage" },
     // { id: 6, to: "/blog", txt: "Blog" },
     // { id: 6, to: "/login", txt: "Login" },
     // { id: 7, to: "/register", txt: "Register" },
@@ -84,6 +84,8 @@ const [nav, setNav] = useState(false);
                   <span className="absolute left-auto -ml-1 top-0 rounded-full bg-blue-600 px-1 py-0 text-xs min-w-[15px] text-center text-white">{Math.round(cartNo*100)/100}</span>
                 </span>
               </Link>
+              <Link to={'/login'}>
+            
                 <div className="inline-block cursor-pointer border-gray-300">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"
                     className="hover:fill-blue-700" onClick={toggleDropdown}>
@@ -92,7 +94,8 @@ const [nav, setNav] = useState(false);
                       d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
                       data-original="#000000" />
                   </svg>
-                  {isOpen && (
+                  
+                  {/* {isOpen && (
                 <div
                     className="origin-top-right absolute right-0 mt-2 w-30 
                     rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5
@@ -116,8 +119,9 @@ const [nav, setNav] = useState(false);
                      </li>            
                     </ul>
                 </div>
-            )}
+            )} */}
                 </div>
+                  </Link>
               </div>
             </section>
             <div className="flex flex-wrap justify-center sm:px-10 px-4 py-3 relative">

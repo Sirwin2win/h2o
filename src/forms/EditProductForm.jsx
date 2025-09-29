@@ -14,56 +14,71 @@ const EditProductForm = () => {
     // getting products from the redux store
     const {currentProduct, status,error} = useSelector((state)=>state.products)
     const {categories} = useSelector((state)=> state.categories)
-    // console.log(currentProduct)
-    // console.log(id)
+    const [formData, setFormData] = useState({
+  title: "",
+  price: "",
+  description: "",
+  categoryId: "",
+  image: null, // file object or URL
+});
+
    // Dispatching fetch request
     useEffect(()=>{
        if(id){
           dispatch(fetchProduct(id))
+          // setRes(currentProduct)
+        
         }
-        // console.log(currentProduct)
+       
     },[dispatch,id])
-// Form inpute state variable initialized
-const [image, setImage] = useState(false);
-  const [data, setData] = useState({
-    title: "",
-    price:"",
-    categoryId:"",
-    description: "",
-  });
 
-  // handle change on an input field
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setData((data) => ({ ...data, [name]: value }));
-  };
+   useEffect(() => {
+  if (currentProduct) {
+    setFormData({
+      title: currentProduct.title || "",
+      price: currentProduct.price || "",
+      description: currentProduct.description || "",
+      categoryId: currentProduct.categoryId || "",
+      image: currentProduct.image || null, // can be string (URL)
+    });
+  }
+}, [currentProduct]);
+
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
+
+const handleImageChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    setFormData((prev) => ({
+      ...prev,
+      image: file,
+    }));
+  }
+};
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("description", data.description);
-    formData.append("price", data.price);
-    formData.append("categoryId", data.categoryId);
-    formData.append("image", image);
+  e.preventDefault();
 
-   
-    console.log(formData);
-    dispatch(updateProduct(formData));
-    if (formData) {
-      setData({
-        title: "",
-        description: "",
-        image: "",
-        price: "",
-        categoryId: "",
-      });
-      setImage(false);
-    }
-  };
+  const product = new FormData();
+  product.append("title", formData.title);
+  product.append("price", formData.price);
+  product.append("description", formData.description);
+  product.append("categoryId", formData.categoryId);
 
+  // Only send file if it's a File object
+  if (formData.image && typeof formData.image === "object") {
+    product.append("image", formData.image);
+  }
 
+  dispatch(updateProduct({ id:id,product }));
+};
   
   
     useEffect(()=>{
@@ -99,8 +114,9 @@ const [image, setImage] = useState(false);
                     type="text"
                     id="title"
                     name="title"
+                    value={formData.title}
                     onChange={handleChange}
-                    // value={currentProduct.title}
+                    
                     className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
                     required
                   />
@@ -111,7 +127,7 @@ const [image, setImage] = useState(false);
                     type="number"
                     name='price'
                     id="price"
-                    //  value={currentProduct.price}
+                    value={formData.price}
                     onChange={handleChange}
                     className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
                     required
@@ -126,7 +142,7 @@ const [image, setImage] = useState(false);
                 htmlFor="image"
               >
                 {/* {currentProduct.image} */}
-                {image ? (
+                {/* {image ? (
                   <img
                     src={URL.createObjectURL(image)}
                     alt=""
@@ -135,16 +151,16 @@ const [image, setImage] = useState(false);
                   />
                 ) : (
                   <IoCloudUploadOutline className="size-[50px]" />
-                )}
+                )} */}
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight
            focus:outline-none focus:shadow-outline form-control"
                 id="image"
                 name="image"
-                onChange={(e) => setImage(e.target.files[0])}
+                onChange={handleImageChange}
                 type="file"
-                hidden
+                // hidden
                 required
               />
             </div>
@@ -174,7 +190,7 @@ const [image, setImage] = useState(false);
                 {/* </div> */}
                   <div>
                   <label className="block text-sm font-medium text-gray-700" htmlFor="description">Product Description</label>
-                  <textarea name="description"   onChange={handleChange} className='mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500' id="description">
+                  <textarea name="description" value={formData.description}   onChange={handleChange} className='mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500' id="description">
                   </textarea>
             
                 </div>

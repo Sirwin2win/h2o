@@ -8,10 +8,10 @@ import ManageProducts from '../components/ManageProducts'
 const Manage = () => {
   return (
     <div>
-      {/* <ProductForm /> */}
+      <ProductForm />
       {/* <Categories /> */}
       {/* <CategoryForm /> */}
-      <ManageProducts />
+      {/* <ManageProducts /> */}
     </div>
   )
 }

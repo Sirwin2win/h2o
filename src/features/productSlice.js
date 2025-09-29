@@ -17,6 +17,18 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+export const fetchSixProducts = createAsyncThunk(
+  'products/fetchSixProducts',
+  async (_, thunkAPI) => {
+    try {
+      const response = await productAPI.fetchSixProductsAPI();
+      return response.data;  // assuming your API returns array of products
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+
 export const fetchProduct = createAsyncThunk(
   'products/fetchProduct',
   async (id, thunkAPI) => {
@@ -43,9 +55,9 @@ export const addProduct = createAsyncThunk(
 
 export const updateProduct = createAsyncThunk(
   'products/updateProduct',
-  async ({ id, updatedFields }, thunkAPI) => {
+  async ({ id, product }, thunkAPI) => {
     try {
-      const response = await productAPI.updateProductAPI(id, updatedFields);
+      const response = await productAPI.updateProductAPI(id, product);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
@@ -72,6 +84,7 @@ const productSlice = createSlice({
   name: 'products',
   initialState: {
     products: [],
+    sixProducts: [],
     currentProduct: 0,  // for editing / viewing one
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
@@ -97,6 +110,19 @@ const productSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      // fetch all six products
+      .addCase(fetchSixProducts.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(fetchSixProducts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.sixProducts = action.payload;
+      })
+      .addCase(fetchSixProducts.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       })
@@ -134,17 +160,13 @@ const productSlice = createSlice({
         state.status = 'loading';
         state.error = null;
       })
-      .addCase(updateProduct.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        const updated = action.payload;
-        const index = state.products.findIndex(p => p.id === updated.id);
+     .addCase(updateProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        const index = state.products.findIndex(p => p.id === action.payload.id);
         if (index !== -1) {
-          state.products[index] = updated;
+          state.products[index] = action.payload;
         }
-        // if currentProduct is the one updated, update that too
-        if (state.currentProduct && state.currentProduct.id === updated.id) {
-          state.currentProduct = updated;
-        }
+        state.currentProduct = action.payload;
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.status = 'failed';
@@ -173,7 +195,7 @@ const productSlice = createSlice({
   }
 });
 
-export const { clearCurrentProduct } = productSlice.actions;
+export const { setCurrentProduct  } = productSlice.actions;
 
 export default productSlice.reducer;
 
