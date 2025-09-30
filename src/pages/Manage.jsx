@@ -11,13 +11,13 @@ import Prod from '../components/Prod'
 const Manage = () => {
   return (
     <div>
-      {/* <ProductForm /> */}
+      <ProductForm />
       {/* <Categories /> */}
       {/* <CategoryForm /> */}
       {/* <ManageProducts /> */}
       {/* <Dashboard /> */}
       {/* <Sidebar /> */}
-      <Prod />
+      {/* <Prod /> */}
     </div>
   )
 }

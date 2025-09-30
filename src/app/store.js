@@ -9,6 +9,7 @@
    import authReducer  from '../features/auth/authSlice'
    import categoryReducer from '../features/category/categorySlice';
    import mailReducer from '../features/mail/mailSlice'
+import payReducer from '../features/pay/paySlice';
 // import { version } from 'react';
 
 
@@ -26,7 +27,8 @@
 
     const store = configureStore({
         reducer: {
-           auth: authReducer,
+         pay:payReducer,
+         auth: authReducer,
         products: productReducer,
         cart : cartSlice,
          // product: detailSlice,

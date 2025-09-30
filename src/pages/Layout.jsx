@@ -38,7 +38,7 @@ const [nav, setNav] = useState(false);
     { id: 2, to: "/about", txt: "About" },
     { id: 3, to: "/contact", txt: "Contact" },
     { id: 4, to: "/product", txt: "Product" },
-    // { id: 5, to: "/manage", txt: "Manage" },
+    { id: 5, to: "/manage", txt: "Manage" },
     // { id: 6, to: "/blog", txt: "Blog" },
     // { id: 6, to: "/login", txt: "Login" },
     // { id: 7, to: "/register", txt: "Register" },

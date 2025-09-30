@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { LiaCalendarWeekSolid } from 'react-icons/lia';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../features/productSlice';
+import CategoryTabs from '../components/CategoryTabs';
 
 
 
@@ -19,6 +20,9 @@ const {products, status, error} = useSelector((state)=> state.products)
   let bottle = []
   let dispenser =[]
 
+  // const categories = [products, sachet, bottle, dispenser];
+  //   const [activeTab, setActiveTab] = useState('All');
+
   for(let i =0; i<products.length; i++){
     if(products[i].categoryId==19){
       sachet.push(products[i])
@@ -28,6 +32,9 @@ const {products, status, error} = useSelector((state)=> state.products)
       dispenser.push(products[i])
     }
   }
+  // console.log(sachet)
+  // console.log(dispenser)
+  // console.log(bottle)
 
   const filteredProducts = products.filter((product) =>
     product.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -59,15 +66,14 @@ return (
       <p className="mr-2 text-lg font-semibold text-gray-900 dark:text-white">₦{product.price}</p>
       <p className="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$25.00</p>
       <p className="ml-auto text-base font-medium text-blue-700">20% off</p>
-     
     </div>
   </div>
   </Link>
 </div>          
         ))}
           {/* <p className='text-center'>No Products found</p> */}
-        
         </div>
+        <CategoryTabs />
     </div>
   )
 }

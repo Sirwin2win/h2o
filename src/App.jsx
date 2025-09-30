@@ -20,6 +20,7 @@ import Manage from './pages/Manage'
 import EditProductForm from './forms/EditProductForm'
 import ManageProducts from './components/ManageProducts'
 import ManageCategory from './components/ManageCategory'
+import ProtectedRoute from './features/auth/ProtectedRoute'
 
 
 
@@ -40,7 +41,12 @@ function App() {
     <Route path='/cart' element={<ShoppingCartCard />} />
     <Route path='/checkout' element={<CheckoutForm />} />
     <Route path='/manage' element={<Manage />} />
-    <Route path='/sidebar' element={<Sidebar />}>
+    <Route path='/sidebar' element={
+      
+       <ProtectedRoute>
+              <Sidebar />
+            </ProtectedRoute>
+      }>
     <Route path='manage-product' element={<ManageProducts />} />
     <Route path='manage-category' element={<ManageCategory />} />
       </Route>

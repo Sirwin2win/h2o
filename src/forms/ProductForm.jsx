@@ -18,6 +18,7 @@ const navigate = useNavigate();
     price:"",
     categoryId:"",
     description: "",
+    // cat:""
   });
 
   // const { user } = useSelector((state) => state.auth);
@@ -30,16 +31,19 @@ const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let cat = localStorage.getItem("cat");
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("price", data.price);
     formData.append("categoryId", data.categoryId);
     formData.append("image", image);
+    formData.append("cat", cat);
 
    
     console.log(formData);
     dispatch(addProduct(formData));
+    localStorage.removeItem(cat);
     if (formData) {
       setData({
         title: "",
@@ -49,6 +53,7 @@ const navigate = useNavigate();
         categoryId: "",
       });
       setImage(false);
+      navigate('/product');
     }
   };
 
@@ -152,9 +157,12 @@ const navigate = useNavigate();
               {/* <option value="bag">bag</option> */}
               {categories && 
                 categories.map((cat) => (
+                  <>
                   <option key={cat.id} value={cat.id} >
                     {cat.name}
                   </option>
+                  {localStorage.setItem('cat',cat.name)}
+                  </>
                 ))}
             </select>
           </div>

@@ -2,6 +2,8 @@ import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { clearCart, removeItem, incrementQuantity, decrementQuantity, } from '../features/cartSlice'
+import { addPay } from '../features/pay/paySlice'
+
 
 
 
@@ -18,7 +20,31 @@ const totalPrice = function(){
   return sum
 }
 
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // const fullName = `${user.firstName} ${user.lastName}`;
+    const checkout = {
+     name:"Ekpe Godwin",
+     email:"sirwin2win@gmail.com",
+     amount:totalPrice()
+    };
+    console.log(checkout);
+    dispatch(addPay(checkout));
+  };
+
 // console.log(items)
+
+ const { paymentUrl, loading, error } = useSelector((state) => state.pay);
+   useEffect(() => {
+    if (paymentUrl) {
+      // Either open in new tab
+      window.open(paymentUrl, '_blank');
+
+      // Or redirect in same tab
+      // window.location.href = paymentUrl;
+    }
+  }, [paymentUrl]);
   return (
    <div className="container mx-auto mt-10">
   <div className="sm:flex shadow-md my-10">
@@ -113,9 +139,12 @@ const totalPrice = function(){
           <span>Total cost</span>
           <span>₦{totalPrice()}</span>
         </div>
-        <Link to={'/checkout'} className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <button  onClick={handleSubmit}  className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Checkout
-            </Link>
+            </button>
+        {/* <Link to={'/checkout'}  className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Checkout
+            </Link> */}
       </div>
     </div>
   </div>
