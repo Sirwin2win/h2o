@@ -15,6 +15,20 @@ const dispatch = useDispatch()
 const {products, status, error} = useSelector((state)=> state.products)
   const searchTerm = useSelector((state) => state.filter.searchTerm);
 
+  let sachet = []
+  let bottle = []
+  let dispenser =[]
+
+  for(let i =0; i<products.length; i++){
+    if(products[i].categoryId==19){
+      sachet.push(products[i])
+    }else if(products[i].categoryId==20){
+      bottle.push(products[i])
+    }else if(products[i].categoryId==21){
+      dispenser.push(products[i])
+    }
+  }
+
   const filteredProducts = products.filter((product) =>
     product.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -31,6 +45,7 @@ if(status === 'faile'){
   return <div>Error : {error}</div>
 }
 return (
+  
     <div className='container'>
        <div className='grid sm:grid-cols-2 md:grid-cols-4 pt-8 gap-2'>
         {filteredProducts.map((product)=>(

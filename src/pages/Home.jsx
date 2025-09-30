@@ -13,7 +13,7 @@ import Slide from '../components/Slide'
 import { Link } from 'react-router-dom';
 import { LiaCalendarWeekSolid } from 'react-icons/lia';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSixProducts } from '../features/productSlice';
+import { fetchProducts } from '../features/productSlice';
 // import TopSellers from '../Sales/TopSellers'
 import water1 from '../assets/images/water1.avif'
 import water2 from '../assets/images/water2.avif'
@@ -41,11 +41,11 @@ const Home = () => {
     water3,
   ];
   const dispatch = useDispatch()
-  const {sixProducts, status} = useSelector((state) => state.products);
+  const {products, status} = useSelector((state) => state.products);
 
   useEffect(()=>{
     if(status==='idle'){
-      dispatch(fetchSixProducts())
+      dispatch(fetchProducts())
     }
   },[status, dispatch])
   if(status === "loading"){
@@ -62,7 +62,7 @@ const Home = () => {
 <Slide images={images}/>
  <FeatureSection />
     <div className='grid sm:grid-cols-2 md:grid-cols-4 pt-8 gap-2'>
-        {sixProducts.map((product)=>( 
+        {products.map((product)=>( 
               // <div key={product.id} className='h-60 w-60'> <img src={product.image}  /></div>
      <div className="mx-auto mt-11 w-60 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg" key={product.id}>
   <img className="h-48 w-full object-cover object-center" src={`https://api.buywaterh2o.com/${product.image}`} />

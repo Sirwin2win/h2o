@@ -12,11 +12,15 @@ import ProductDetail from './components/ProductDetail'
 import Login from './pages/Login'
 import DetailPage from './components/DetailPage'
 import ShoppingCartCard from './components/ShoppingCartCard'
+// import Sidebar from './components/Sidebar'
 import CheckoutForm from './forms/CheckoutForm'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Manage from './pages/Manage'
 import EditProductForm from './forms/EditProductForm'
+import ManageProducts from './components/ManageProducts'
+import ManageCategory from './components/ManageCategory'
+
 
 
 function App() {
@@ -36,6 +40,10 @@ function App() {
     <Route path='/cart' element={<ShoppingCartCard />} />
     <Route path='/checkout' element={<CheckoutForm />} />
     <Route path='/manage' element={<Manage />} />
+    <Route path='/sidebar' element={<Sidebar />}>
+    <Route path='manage-product' element={<ManageProducts />} />
+    <Route path='manage-category' element={<ManageCategory />} />
+      </Route>
       </Route>
     </Routes>
     </BrowserRouter>

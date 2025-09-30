@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-const API_URL = 'https://api.buywaterh2o.com/api/auth' // Change to your actual base URL
+const API_URL = 'https://api.buywaterh2o.com/api/auth' 
+
+// Get user from localStorage
+const person = localStorage.getItem('user')
+const user = JSON.parse(person)
 
 // 🔐 Register
 export const register = createAsyncThunk(
@@ -35,17 +39,23 @@ export const login = createAsyncThunk(
       const res = await axios.post(`${API_URL}/login`, {
         email,
         password,
-      })
+      });
 
-      localStorage.setItem('token', res.data.token)
+      // Store token (and possibly user info) in localStorage
+      localStorage.setItem('token', res.data.token);
 
-      return res.data // { user, token }
+      // Optional: if your backend sends user data, store it too
+      // localStorage.setItem('user', JSON.stringify(res.data.user));
+
+      return res.data; // Should contain: { user, token }
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data || { message: 'Something went wrong' })
-
+      // Better safe fallback error message
+      return thunkAPI.rejectWithValue(
+        err.response?.data || { message: 'Something went wrong. Please try again.' }
+      );
     }
   }
-)
+);
 
 // 🔓 Logout
 export const logout = createAsyncThunk('auth/logout', async () => {
