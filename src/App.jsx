@@ -20,14 +20,17 @@ import Manage from './pages/Manage'
 import EditProductForm from './forms/EditProductForm'
 import ManageProducts from './components/ManageProducts'
 import ManageCategory from './components/ManageCategory'
-import ProtectedRoute from './features/auth/ProtectedRoute'
+import { AuthProvider } from './AuthProvider';
+import ProtectedRoute from './ProtectedRoute';
 
 
 
 function App() {
 
   return (
+    
     <BrowserRouter>
+     <AuthProvider>
     <Routes>
       <Route path='/' element={<Layout />}>
     <Route index element={<Home />} />
@@ -38,7 +41,11 @@ function App() {
     <Route path='/product/:id' element={<DetailPage />} />
     <Route path='/edit/:id' element={<EditProductForm />} />
     <Route path='/login' element={<Login />} />
-    <Route path='/cart' element={<ShoppingCartCard />} />
+    <Route path='/cart' element={
+      <ProtectedRoute>
+      <ShoppingCartCard />
+      </ProtectedRoute>
+      } />
     <Route path='/checkout' element={<CheckoutForm />} />
     <Route path='/manage' element={<Manage />} />
     <Route path='/sidebar' element={
@@ -52,7 +59,9 @@ function App() {
       </Route>
       </Route>
     </Routes>
+      </AuthProvider>
     </BrowserRouter>
+  
   )
 }
 

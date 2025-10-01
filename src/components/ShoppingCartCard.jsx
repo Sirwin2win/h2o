@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { clearCart, removeItem, incrementQuantity, decrementQuantity, } from '../features/cartSlice'
 import { addPay } from '../features/pay/paySlice'
+import { useAuth } from '../useAuth'
 
 
 
