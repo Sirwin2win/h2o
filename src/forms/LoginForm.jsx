@@ -2,22 +2,25 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../features/auth/authSlice";
+import { useLocation } from 'react-router-dom';
 
 
 
 const LoginForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
     const auth = useSelector((state) => state.auth)
      const { user, loading, error } = useSelector((state) => state.auth);
 
-
- useEffect(() => {
-    if (user) {
-      // Redirect to dashboard after successful login
-      navigate('/sidebar');
-    }
-  }, [user, navigate]);
+// Handle redirects
+const location = useLocation();
+const from = location.state?.from?.pathname || '/sidebar';
+     useEffect(() => {
+      if (user) {
+        navigate(from, { replace: true });
+      }
+    }, [user, navigate, from]);
 
   
     const [form, setForm] = useState({
@@ -30,7 +33,7 @@ const LoginForm = () => {
   
     const handleSubmit = (e) => {
       e.preventDefault()
-      console.log(form)
+      // console.log(form)
       dispatch(login(form))
     }
 
@@ -54,7 +57,7 @@ const LoginForm = () => {
              {/* Email  */}
               {auth.error && <p style={{ color: 'red' }}>{auth.error}</p>}
             <div>
-              <label className="block text-sm font-medium text-gray-700" for="email">Email Address</label>
+              <label className="block text-sm font-medium text-gray-700" htmlFor="email">Email Address</label>
               <input
                 type="email"
                 id="email"
@@ -66,7 +69,7 @@ const LoginForm = () => {
             </div>
              {/* Password  */}
               <div>
-              <label className="block text-sm font-medium text-gray-700" for="password">Password</label>
+              <label className="block text-sm font-medium text-gray-700" htmlFor="password">Password</label>
               <input
                 type="password"
                 id="password"
@@ -83,7 +86,7 @@ const LoginForm = () => {
                   id="remember"
                   className="h-4 w-4 text-blue-700 focus:ring-blue-700 border-gray-300 rounded"
                 />
-                <label for="remember" className="ml-2 block text-sm text-gray-700">Remember me</label>
+                <label htmlFor="remember" className="ml-2 block text-sm text-gray-700">Remember me</label>
               </div>
               <Link to={'/reset-email'} className="text-sm text-blue-700 hover:text-blue-700">Forgot password?</Link>
             </div>

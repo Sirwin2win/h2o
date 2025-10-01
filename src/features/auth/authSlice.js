@@ -66,11 +66,28 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
-    token: localStorage.getItem('token') || null,
+    token: null,
     status: 'idle',
     error: null,
+    initialized: false, 
   },
-  reducers: {},
+  reducers: {
+    // setCredentials: (state, action) => {
+    //   if (
+    //     state.token === action.payload.token &&
+    //     JSON.stringify(state.user) === JSON.stringify(action.payload.user)
+    //   ) {
+    //     return; // 🔒 Avoid unnecessary update
+    //   }
+    //   state.token = action.payload.token;
+    //   state.user = action.payload.user;
+    // }
+    setCredentials: (state, action) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.initialized = true;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Register
@@ -109,5 +126,5 @@ const authSlice = createSlice({
       })
   },
 })
-
+export const { setCredentials } = authSlice.actions;
 export default authSlice.reducer

@@ -22,10 +22,14 @@ import ManageProducts from './components/ManageProducts'
 import ManageCategory from './components/ManageCategory'
 import { AuthProvider } from './AuthProvider';
 import ProtectedRoute from './ProtectedRoute';
+import useAuthInit from './useAuthInit'
+import RequireAuth from './RequireAuth'
+
 
 
 
 function App() {
+  useAuthInit();
 
   return (
     
@@ -42,21 +46,29 @@ function App() {
     <Route path='/edit/:id' element={<EditProductForm />} />
     <Route path='/login' element={<Login />} />
     <Route path='/cart' element={
-      <ProtectedRoute>
+      <RequireAuth>
       <ShoppingCartCard />
-      </ProtectedRoute>
+      </RequireAuth>
       } />
     <Route path='/checkout' element={<CheckoutForm />} />
     <Route path='/manage' element={<Manage />} />
     <Route path='/sidebar' element={
       
-       <ProtectedRoute>
+       <RequireAuth>
               <Sidebar />
-            </ProtectedRoute>
+            </RequireAuth>
       }>
     <Route path='manage-product' element={<ManageProducts />} />
     <Route path='manage-category' element={<ManageCategory />} />
       </Route>
+        {/* <Route
+          path="/sidebar/*"
+          element={
+            <RequireAuth>
+              <Sidebar />
+            </RequireAuth>
+          }
+        /> */}
       </Route>
     </Routes>
       </AuthProvider>

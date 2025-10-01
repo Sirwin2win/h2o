@@ -3,7 +3,7 @@ import { FaBars, FaCog, FaHome, FaSignOutAlt, FaUserAlt } from 'react-icons/fa'
 import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector ,useDispatch } from 'react-redux'
 import { Outlet, Link, useNavigate } from 'react-router-dom'
-import { logout } from '../features/auth/authSlice'
+import { logout, setCredentials } from '../features/auth/authSlice'
 import { AiOutlineProduct } from "react-icons/ai";
 import { TbCategory } from "react-icons/tb";
 import { BiPurchaseTag } from "react-icons/bi";
@@ -11,17 +11,15 @@ import { BiPurchaseTag } from "react-icons/bi";
 
 
 
+
+
 const Sidebar = () => {
    const [isOpen, setIsOpen] = useState(false)
-   const token = useSelector((state) => state.auth.token);
+   const { user, token: currentToken } = useSelector((state) => state.auth);
    const navigate = useNavigate()
    const dispatch = useDispatch();
-   useEffect(() => {
-       if (!token) {
-         // Redirect to dashboard after successful login
-         navigate('/');
-       }
-     }, [token, navigate]);
+
+
 
      // Handle logout
        const handleLogout = () => {
