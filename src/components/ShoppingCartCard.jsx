@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { clearCart, removeItem, incrementQuantity, decrementQuantity, } from '../features/cartSlice'
 import { addPay } from '../features/pay/paySlice'
-import { useAuth } from '../useAuth'
+
 
 
 
@@ -11,7 +11,6 @@ import { useAuth } from '../useAuth'
 const ShoppingCartCard = () => {
 const {items} = useSelector((state)=> state.cart)
 const cartNo = useSelector(state => state.cart.totalQuantity)
- const { user, logout } = useAuth();
  const dispatch = useDispatch()
 
 const totalPrice = function(){

@@ -1,11 +1,26 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import {jwtDecode} from 'jwt-decode';
 
 const API_URL = 'https://api.buywaterh2o.com/api/auth' 
 
 // Get user from localStorage
-const person = localStorage.getItem('user')
-const user = JSON.parse(person)
+const token = localStorage.getItem('token');
+let user = null;
+
+if (token) {
+  try {
+    const decoded = jwtDecode(token);
+    user = {
+      id: decoded.id,
+      email: decoded.email,
+      role: decoded.role,
+      token,
+    };
+  } catch (err) {
+    console.error('Invalid token', err);
+  }
+}
 
 // 🔐 Register
 export const register = createAsyncThunk(
@@ -65,8 +80,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: null,
-    token: null,
+    user,
     status: 'idle',
     error: null,
     initialized: false, 
@@ -82,11 +96,11 @@ const authSlice = createSlice({
     //   state.token = action.payload.token;
     //   state.user = action.payload.user;
     // }
-    setCredentials: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.initialized = true;
-    },
+    // setCredentials: (state, action) => {
+    //   state.user = action.payload.user;
+    //   state.token = action.payload.token;
+    //   state.initialized = true;
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -111,8 +125,21 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.user = action.payload.user
-        state.token = action.payload.token
+        // state.user = action.payload.user
+        // state.token = action.payload.token
+         const { token } = action.payload;
+           try {
+        const decoded = jwtDecode(token);
+        state.user = {
+          id: decoded.id,
+          email: decoded.email,
+          role: decoded.role,
+          token,
+        };
+        localStorage.setItem('token', token);
+      } catch (err) {
+        console.error('Token decode failed:', err);
+      }
       })
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed'
