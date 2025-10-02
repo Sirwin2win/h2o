@@ -24,6 +24,9 @@ import { AuthProvider } from './AuthProvider';
 import ProtectedRoute from './ProtectedRoute';
 import useAuthInit from './useAuthInit'
 import RequireAuth from './RequireAuth'
+import ResetEmailForm from './forms/ResetEmailForm'
+import RegisterForm from './forms/RegisterForm'
+import ResetPassword from './forms/ResetPassword'
 
 
 
@@ -45,6 +48,7 @@ function App() {
     <Route path='/product/:id' element={<DetailPage />} />
     <Route path='/edit/:id' element={<EditProductForm />} />
     <Route path='/login' element={<Login />} />
+    <Route path='/register' element={<RegisterForm />} />
     <Route path='/cart' element={
       <RequireAuth>
       <ShoppingCartCard />
@@ -61,6 +65,8 @@ function App() {
     <Route path='manage-product' element={<ManageProducts />} />
     <Route path='manage-category' element={<ManageCategory />} />
       </Route>
+      <Route path='reset-email' element={<ResetEmailForm />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
         {/* <Route
           path="/sidebar/*"
           element={

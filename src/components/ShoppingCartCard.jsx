@@ -11,6 +11,7 @@ import { useAuth } from '../useAuth'
 const ShoppingCartCard = () => {
 const {items} = useSelector((state)=> state.cart)
 const cartNo = useSelector(state => state.cart.totalQuantity)
+ const { user, logout } = useAuth();
  const dispatch = useDispatch()
 
 const totalPrice = function(){
