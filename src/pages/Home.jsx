@@ -42,7 +42,8 @@ const Home = () => {
   ];
   const dispatch = useDispatch()
   const {products, status} = useSelector((state) => state.products);
-
+  const user = useSelector((state)=> state.auth.user)
+// console.log(user.role)
   useEffect(()=>{
     if(status==='idle'){
       dispatch(fetchProducts())

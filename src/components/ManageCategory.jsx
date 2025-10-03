@@ -9,6 +9,7 @@ import { deleteCategory , fetchCategories} from '../features/category/categorySl
 const ManageCategory = () => {
         const dispatch = useDispatch()
         const {categories, status, error} = useSelector((state)=> state.categories)
+        const user = useSelector((state)=> state.auth.user)
             useEffect(()=>{
               if(status==='idle'){
                 dispatch(fetchCategories())
@@ -41,7 +42,12 @@ const ManageCategory = () => {
              <tr className="border-b" key={cat.id}>
           <td className="px-2 py-2">{cat.id}</td>
           <td className="px-2 py-2">{cat.name}</td>
-          <td className="px-2 py-2 mt-13 flex"><Link to={`/edit/${cat.id}`}><FaRegEdit className='text-orange-500 mr-2' /></Link> | <FaRegTrashAlt className='text-red-500 ml-2' onClick={() => handleDelete(product.id)} /> </td>
+          {user.role == 'admin'?
+
+<td className="px-2 py-2 mt-13 flex"><Link to={`/edit/${cat.id}`}><FaRegEdit className='text-orange-500 mr-2' /></Link> | <FaRegTrashAlt className='text-red-500 ml-2' onClick={() => handleDelete(product.id)} /> </td>
+         :
+<td className="px-2 py-2">{cat.name}</td>
+        }
         </tr>
         ))}
       </tbody>

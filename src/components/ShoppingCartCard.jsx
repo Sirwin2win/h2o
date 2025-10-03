@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { clearCart, removeItem, incrementQuantity, decrementQuantity, } from '../features/cartSlice'
 import { addPay } from '../features/pay/paySlice'
 
@@ -11,7 +11,9 @@ import { addPay } from '../features/pay/paySlice'
 const ShoppingCartCard = () => {
 const {items} = useSelector((state)=> state.cart)
 const cartNo = useSelector(state => state.cart.totalQuantity)
+const user = useSelector((state)=>state.auth.user)
  const dispatch = useDispatch()
+ const navigate = useNavigate()
 
 const totalPrice = function(){
   let sum = 0
@@ -26,8 +28,8 @@ const totalPrice = function(){
     e.preventDefault();
     // const fullName = `${user.firstName} ${user.lastName}`;
     const checkout = {
-     name:"Ekpe Godwin",
-     email:"sirwin2win@gmail.com",
+     name:user.name,
+     email:user.email,
      amount:totalPrice()
     };
     console.log(checkout);
@@ -46,6 +48,13 @@ const totalPrice = function(){
       // window.location.href = paymentUrl;
     }
   }, [paymentUrl]);
+
+    useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
+
   return (
    <div className="container mx-auto mt-10">
   <div className="sm:flex shadow-md my-10">

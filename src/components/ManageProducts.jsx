@@ -9,6 +9,7 @@ import { fetchProducts, deleteProduct } from '../features/productSlice';
 const ManageProducts = () => {
     const dispatch = useDispatch()
     const {products, status, error} = useSelector((state)=> state.products)
+    const user = useSelector((state)=> state.auth.user)
 
     
     useEffect(()=>{
@@ -47,7 +48,12 @@ const ManageProducts = () => {
       <td className="px-2 py-2">{product.title}</td>
       <td className="px-2 py-2"><img src={`https://api.buywaterh2o.com/${product.image}`} alt='' className='size-30' /></td>
       <td className="px-2 py-2">₦{product.price}</td>
-      <td className="px-2 py-2 mt-13 flex"><Link to={`/edit/${product.id}`}><FaRegEdit className='text-orange-500 mr-2' /></Link> | <FaRegTrashAlt className='text-red-500 ml-2' onClick={() => handleDelete(product.id)} /> </td>
+      {user.role == 'admin'?
+
+<td className="px-2 py-2 mt-13 flex"><Link to={`/edit/${product.id}`}><FaRegEdit className='text-orange-500 mr-2' /></Link> | <FaRegTrashAlt className='text-red-500 ml-2' onClick={() => handleDelete(product.id)} /> </td>
+      :
+      <td className="px-2 py-2">₦{product.price}</td>
+      }
     </tr>
     ))}
   </tbody>

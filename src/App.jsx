@@ -20,13 +20,12 @@ import Manage from './pages/Manage'
 import EditProductForm from './forms/EditProductForm'
 import ManageProducts from './components/ManageProducts'
 import ManageCategory from './components/ManageCategory'
-// import { AuthProvider } from './AuthProvider';
-// import ProtectedRoute from './ProtectedRoute';
-// import useAuthInit from './useAuthInit'
-// import RequireAuth from './RequireAuth'
 import ResetEmailForm from './forms/ResetEmailForm'
 import RegisterForm from './forms/RegisterForm'
 import ResetPassword from './forms/ResetPassword'
+import ProtectedRoute from './components/ProtectedRoute'
+import Dealer from './components/Dealer'
+import UserRoleForm from './forms/UserRoleForm'
 
 
 
@@ -47,15 +46,25 @@ function App() {
     <Route path='/edit/:id' element={<EditProductForm />} />
     <Route path='/login' element={<Login />} />
     <Route path='/register' element={<RegisterForm />} />
-    <Route path='/cart' element={<ShoppingCartCard />} />
+    <Route path='/cart' element={
+      <ProtectedRoute>
+      <ShoppingCartCard />
+      </ProtectedRoute>
+      } />
     <Route path='/checkout' element={<CheckoutForm />} />
     <Route path='/manage' element={<Manage />} />
-    <Route path='/sidebar' element={<Sidebar />}>
+    <Route path='/sidebar' element={
+      <ProtectedRoute>
+      <Sidebar />
+      </ProtectedRoute>
+      }>
     <Route path='manage-product' element={<ManageProducts />} />
     <Route path='manage-category' element={<ManageCategory />} />
+    <Route path='role' element={<UserRoleForm />} />
       </Route>
       <Route path='reset-email' element={<ResetEmailForm />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path='/dealer' element={<Dealer />} />
       </Route>
     </Routes>
     </BrowserRouter>

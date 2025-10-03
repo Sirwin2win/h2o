@@ -22,6 +22,38 @@ if (token) {
   }
 }
 
+// 🔐 Get Users
+export const getUsers = createAsyncThunk(
+  'auth/getUsers',
+  async (_, thunkAPI) => {
+    try {
+      const res = await axios.get(API_URL)
+      return res.data // { user, token }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || { message: 'Something went wrong' })
+
+    }
+  }
+)
+
+
+
+export const updateRole = createAsyncThunk(
+  'users/update',
+  async ({ id, role }, thunkAPI) => {
+    try {
+       const res = await axios.put(`${API_URL}/update-role`, {
+        role,
+        id
+       })
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+
+
 // 🔐 Register
 export const register = createAsyncThunk(
   'auth/register',
@@ -81,6 +113,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user,
+    users:[],
     status: 'idle',
     error: null,
     initialized: false, 
@@ -104,6 +137,36 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Get Users
+      .addCase(getUsers.pending, (state) => {
+        state.status = 'loading'
+        state.error = null
+      })
+      .addCase(getUsers.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.users = action.payload;
+      })
+      .addCase(getUsers.rejected, (state, action) => {
+        state.status = 'failed'
+       state.error = action.payload;
+      })
+     // update user
+           .addCase(updateRole.pending, (state) => {
+             state.status = 'loading';
+             state.error = null;
+           })
+          .addCase(updateRole.fulfilled, (state, action) => {
+             state.loading = false;
+             const index = state.users.findIndex(p => p.id === action.payload.id);
+             if (index !== -1) {
+               state.users[index] = action.payload;
+             }
+             state.currentProduct = action.payload;
+           })
+           .addCase(updateRole.rejected, (state, action) => {
+             state.status = 'failed';
+             state.error = action.payload;
+           })
       // Register
       .addCase(register.pending, (state) => {
         state.status = 'loading'

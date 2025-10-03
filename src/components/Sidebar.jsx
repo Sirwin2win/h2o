@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { FaBars, FaCog, FaHome, FaSignOutAlt, FaUserAlt } from 'react-icons/fa'
+import { FaBars, FaCog, FaHome, FaSignOutAlt, FaUserEdit } from 'react-icons/fa'
 import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector ,useDispatch } from 'react-redux'
 import { Outlet, Link, useNavigate } from 'react-router-dom'
@@ -15,7 +15,7 @@ import { BiPurchaseTag } from "react-icons/bi";
 
 const Sidebar = () => {
    const [isOpen, setIsOpen] = useState(false)
-   const { user, token: currentToken } = useSelector((state) => state.auth);
+   const user = useSelector((state) => state.auth.user);
    const navigate = useNavigate()
    const dispatch = useDispatch();
 
@@ -69,6 +69,15 @@ const Sidebar = () => {
          <Link to={'manage-product'}>My Orders</Link>
          </span>  
       </li>
+      {user.role == 'admin' &&
+        <li className='flex items-center p-4 hover:bg-gray-700 cursor-pointer'>
+        <FaUserEdit size={24}/>
+        <span className={`ml-4 md:block ${isOpen?"block":"hidden"}`}>
+        <Link to={'role'}>User Roles</Link>
+         </span>  
+      </li>
+      }
+    
       <li className='flex items-center p-4 hover:bg-gray-700 cursor-pointer'>
         <FaCog size={24} />
         <span className={`ml-4 md:block ${isOpen?"block":"hidden"}`}>
