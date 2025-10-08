@@ -26,6 +26,12 @@ import ResetPassword from './forms/ResetPassword'
 import ProtectedRoute from './components/ProtectedRoute'
 import Dealer from './components/Dealer'
 import UserRoleForm from './forms/UserRoleForm'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AuthStatusDisplay from './components/AuthStatusDisplay'
+import ProductStatusDisplay from './components/ProductStatusDisplay'
+import ProductForm from './forms/ProductForm'
+
 
 
 
@@ -35,6 +41,8 @@ function App() {
   return (
     
     <BrowserRouter>
+    <AuthStatusDisplay />
+    <ProductStatusDisplay />
     <Routes>
       <Route path='/' element={<Layout />}>
     <Route index element={<Home />} />
@@ -44,6 +52,7 @@ function App() {
     {/* <Route path='/product/:id' element={<ProductDetail />} /> */}
     <Route path='/product/:id' element={<DetailPage />} />
     <Route path='/edit/:id' element={<EditProductForm />} />
+    <Route path='/create-product' element={<ProductForm />} />
     <Route path='/login' element={<Login />} />
     <Route path='/register' element={<RegisterForm />} />
     <Route path='/cart' element={
@@ -67,6 +76,7 @@ function App() {
       <Route path='/dealer' element={<Dealer />} />
       </Route>
     </Routes>
+     <ToastContainer />
     </BrowserRouter>
   
   )

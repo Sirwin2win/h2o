@@ -20,7 +20,7 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(form)
+
     dispatch(register(form))
   } 
 

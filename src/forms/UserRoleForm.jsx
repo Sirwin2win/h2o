@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import logo from '../assets/images/logo.jpg'
 import {getUsers,updateRole} from '../features/auth/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 
 const UserRoleForm = () => {
   const {users, status} = useSelector((state)=>state.auth)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
 
     const [data, setData] = useState({
@@ -13,11 +16,6 @@ const UserRoleForm = () => {
       id:""
     });
 
-  //    const handleChange = (e) => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-  //   setData((data) => ({ ...data, [name]: value }));
-  // };
 
   const handleChange = (e) => {
   const { name, value } = e.target;
@@ -33,13 +31,10 @@ const UserRoleForm = () => {
   role: data.role,
   id: data.id
 };
-      console.log(update);
+      // console.log(update);
       dispatch(updateRole(update));
       if (update) {
-        setData({
-       role:"",
-       id:""
-        });
+      navigate('/sidebar')
       }
     };
   

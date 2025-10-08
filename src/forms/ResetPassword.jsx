@@ -31,7 +31,7 @@ const ResetPassword = () => {
          password,
          token
         };
-        console.log(mail);
+     
         dispatch(updateMail(mail));
         setFormData({
          password:""

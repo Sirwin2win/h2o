@@ -31,6 +31,11 @@ const ManageProducts = () => {
   };
   return (
     <div>
+      {user.role == 'admin'?
+     <button className='bg-blue-700 rounded-2xl h-10 w-30 font-bold my-4 mx-auto'><Link to={'/create-product'} className='text-center text-white'>Create Product</Link></button> 
+     :
+     <p>You can only view products</p>
+      }
     <table className="w-full text-left table-auto">
   <thead>
     <tr className="bg-gray-200">

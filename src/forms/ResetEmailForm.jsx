@@ -26,7 +26,7 @@ const ResetEmailForm = () => {
       const mail = {
        email,
       };
-      console.log(mail);
+   
       dispatch(resetMail(mail));
       setFormData({
        email:""

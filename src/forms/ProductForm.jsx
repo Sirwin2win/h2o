@@ -41,7 +41,7 @@ const navigate = useNavigate();
     formData.append("cat", cat);
 
    
-    console.log(formData);
+   
     dispatch(addProduct(formData));
     localStorage.removeItem(cat);
     if (formData) {

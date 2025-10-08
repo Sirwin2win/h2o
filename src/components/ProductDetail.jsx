@@ -21,7 +21,7 @@ const totalQuantity = () => {
 }
     useEffect(()=>{
         dispatch(getProductById(id))
-        console.log(product)
+        // console.log(product)
     },[dispatch,id])
   return (
  <div className='md:flex p-2'>

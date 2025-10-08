@@ -25,7 +25,7 @@ const CategoryForm = () => {
     const categoryData = {
      name:name
     };
-    console.log(categoryData);
+    
     dispatch(addCategory(categoryData));
     navigate("../product");
     setFormData({

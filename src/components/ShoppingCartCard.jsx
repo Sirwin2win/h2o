@@ -32,7 +32,7 @@ const totalPrice = function(){
      email:user.email,
      amount:totalPrice()
     };
-    console.log(checkout);
+    // console.log(checkout);
     dispatch(addPay(checkout));
   };
 

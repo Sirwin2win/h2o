@@ -30,7 +30,7 @@ const handleChange = (e) => {
      email,
      message,
     };
-    console.log(mailData);
+
     dispatch(addMail(mailData));
     navigate("../product");
     // setFormData({

@@ -40,12 +40,7 @@ const CreateProduct = () => {
     formData.append("userId", userId);
     formData.append("image", image);
     formData.append("fullName", fullName);
-    // dispatch(createProduct({ formData }))
-    // setData([])
-    // // setDescription('')
-    // setImage(false)
-    console.log(formData);
-    // const response = await axios.post('http://localhost:5000/api/products', formData)
+  
     dispatch(createContribution(formData));
     if (formData) {
       setData({
@@ -57,17 +52,7 @@ const CreateProduct = () => {
     }
   };
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   const minutesData = {
-  //     branch: props._id,
-  //     title,
-  //     description,
-  //   };
-  //   // console.log(minutesData);
-  //   dispatch(createMinutes(minutesData));
-  //   navigate("../profile");
-  // };
+
   return (
     <div className="mt-[50px]">
       <form>
