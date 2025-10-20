@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 const UserRoleForm = () => {
   const {users, status} = useSelector((state)=>state.auth)
+  const user = useSelector((state)=> state.auth.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -116,6 +117,7 @@ const UserRoleForm = () => {
                 ))}
             </select>
           </div>
+          {user.role == 'admin' && 
              <button
                type="submit"
                onClick={handleSubmit}
@@ -124,6 +126,7 @@ const UserRoleForm = () => {
              >
                <span>Update Role</span>
              </button>
+}
            </form>
  
          </div>

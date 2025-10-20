@@ -61,7 +61,11 @@ function App() {
       </ProtectedRoute>
       } />
     <Route path='/checkout' element={<CheckoutForm />} />
-    <Route path='/manage' element={<Manage />} />
+    <Route path='/manage' element={
+      // <ProtectedRoute>
+        <Manage />
+      // </ProtectedRoute>
+      } />
     <Route path='/sidebar' element={
       <ProtectedRoute>
       <Sidebar />

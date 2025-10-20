@@ -62,7 +62,7 @@ return (
     <p className="mb-2 text-base dark:text-gray-300 text-gray-700"></p>
     <div className="flex items-center">
       <p className="mr-2 text-lg font-semibold text-gray-900 dark:text-white">₦{product.price}</p>
-      <p className="text-base  font-medium text-gray-500 line-through dark:text-gray-300">₦25.00</p>
+      <p className="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$25.00</p>
       <p className="ml-auto text-base font-medium text-blue-700">20% off</p>
     </div>
   </div>
