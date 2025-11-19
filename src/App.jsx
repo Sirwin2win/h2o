@@ -26,7 +26,7 @@ import ResetPassword from './forms/ResetPassword'
 import ProtectedRoute from './components/ProtectedRoute'
 import Dealer from './components/Dealer'
 import UserRoleForm from './forms/UserRoleForm'
-import { ToastContainer } from 'react-toastify';
+// import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthStatusDisplay from './components/AuthStatusDisplay'
 import ProductStatusDisplay from './components/ProductStatusDisplay'
@@ -80,7 +80,7 @@ function App() {
       <Route path='/dealer' element={<Dealer />} />
       </Route>
     </Routes>
-     <ToastContainer />
+     {/* <ToastContainer /> */}
     </BrowserRouter>
   
   )

@@ -66,7 +66,6 @@ const user = useSelector((state)=>state.auth.user)
         <h2 className="font-semibold text-2xl">{totalQuantity} Item(s)</h2>
       </div>
         {cartItems.map((item)=>(
-            
                      <div className="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50" key={item.id}>
         <div className="md:w-4/12 2xl:w-1/4 w-full">
           <img src={`https://api.buywaterh2o.com/${item.image}`} alt="Black Leather Purse" className="h-full object-center object-cover md:block hidden" />
@@ -86,8 +85,6 @@ const user = useSelector((state)=>state.auth.user)
           <p className="text-xs leading-3 text-gray-600 py-4">Price: ₦{item.price}</p>
           <p className="w-96 text-xs leading-3 text-gray-600">Composition: 100% calf leather</p>
             <div className="flex items-center rounded-lg border overflow-hidden mt-10 w-30">
-          
-          
                           {/* <button id="addToCart" className="ml-auto flex-1 lg:flex-none  text-blue-700 font-semibold rounded-lg px-6 py-3 shadow">Continue Shopping</button> */}
                           <button id="dec" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(descreaseCart(item.id))}>−</button>
                           {/* <input id="qty" type="number" value="1" min="1" max="10" className="w-16 text-center outline-none p-2" aria-label="Quantity" /> */}
