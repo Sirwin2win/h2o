@@ -1,27 +1,29 @@
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { clearCart, removeItem, incrementQuantity, decrementQuantity, } from '../features/cartSlice'
 import { addPay } from '../features/pay/paySlice'
+import { increaseCart, descreaseCart, removeFromCart, clearCart } from '../features/carts/cartSlice'
 
 
 
 
 
 const ShoppingCartCard = () => {
-const {items} = useSelector((state)=> state.cart)
-const cartNo = useSelector(state => state.cart.totalQuantity)
+// const {items} = useSelector((state)=> state.cart)
+// const cartNo = useSelector(state => state.cart.totalQuantity)
+const {cartItems, totalQuantity, totalAmount} =  useSelector((state)=> state.cart) 
+console.log(cartItems)
 const user = useSelector((state)=>state.auth.user)
  const dispatch = useDispatch()
  const navigate = useNavigate()
 
-const totalPrice = function(){
-  let sum = 0
-  for(let i = 0; i<items.length; i++){
-    sum += items[i].price * items[i].quantity 
-  }
-  return sum
-}
+// const totalPrice = function(){
+//   let sum = 0
+//   for(let i = 0; i<items.length; i++){
+//     sum += items[i].price * items[i].quantity 
+//   }
+//   return sum
+// }
 
 
   const handleSubmit = (e) => {
@@ -30,7 +32,7 @@ const totalPrice = function(){
     const checkout = {
      name:user.name,
      email:user.email,
-     amount:totalPrice()
+     amount:totalAmount
     };
     // console.log(checkout);
     dispatch(addPay(checkout));
@@ -61,9 +63,9 @@ const totalPrice = function(){
     <div className="  w-full  sm:w-3/4 bg-white px-10 py-10">
       <div className="flex justify-between border-b pb-8">
         <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-        <h2 className="font-semibold text-2xl">{cartNo} Item(s)</h2>
+        <h2 className="font-semibold text-2xl">{totalQuantity} Item(s)</h2>
       </div>
-        {items.map((item)=>(
+        {cartItems.map((item)=>(
             
                      <div className="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50" key={item.id}>
         <div className="md:w-4/12 2xl:w-1/4 w-full">
@@ -87,16 +89,16 @@ const totalPrice = function(){
           
           
                           {/* <button id="addToCart" className="ml-auto flex-1 lg:flex-none  text-blue-700 font-semibold rounded-lg px-6 py-3 shadow">Continue Shopping</button> */}
-                          <button id="dec" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(decrementQuantity(item.id))}>−</button>
+                          <button id="dec" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(descreaseCart(item.id))}>−</button>
                           {/* <input id="qty" type="number" value="1" min="1" max="10" className="w-16 text-center outline-none p-2" aria-label="Quantity" /> */}
                           <p>{item.quantity}</p>
                           
-                          <button id="inc" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(incrementQuantity(item.id))}>+</button>
+                          <button id="inc" className="px-4 py-2 text-lg bg-white hover:bg-gray-100" onClick={()=>dispatch(increaseCart(item.id))}>+</button>
                         </div>
           <div className="flex items-center justify-between pt-5">
             <div className="flex itemms-center">
               <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">Add to favorites</p>
-              <button className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer" onClick={()=>dispatch(removeItem(item.id))}>Remove</button>
+              <button className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer" onClick={()=>dispatch(removeFromCart(item.id))}>Remove</button>
             </div>
             <p className="text-base font-black leading-none text-gray-800 ml-9">Price x Quantity: ₦{item.price*item.quantity}</p>
             
@@ -116,8 +118,8 @@ const totalPrice = function(){
     <div id="summary" className=" w-full   sm:w-1/4   md:w-1/2     px-8 py-10">
       <h1 className="font-semibold text-2xl border-b pb-8">Order Summary</h1>
       <div className="flex justify-between mt-10 mb-5">
-        <span className="font-semibold text-sm uppercase">Number of Items : <span> {cartNo}</span></span>
-        <span className="font-semibold text-sm">₦{totalPrice()}</span>
+        <span className="font-semibold text-sm uppercase">Number of Items : <span> {totalQuantity}</span></span>
+        <span className="font-semibold text-sm">₦{totalAmount}</span>
       </div>
       {/* <div>
         <label className="font-medium inline-block mb-3 text-sm uppercase">
@@ -147,7 +149,7 @@ const totalPrice = function(){
       <div className="border-t mt-8">
         <div className="flex font-semibold justify-between py-6 text-sm uppercase">
           <span>Total cost</span>
-          <span>₦{totalPrice()}</span>
+          <span>₦{totalAmount}</span>
         </div>
         <button  onClick={handleSubmit}  className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Checkout

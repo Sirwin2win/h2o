@@ -1,6 +1,6 @@
    import { configureStore } from '@reduxjs/toolkit';
     import productReducer from "../features/productSlice"
-    import cartSlice from "../features/cartSlice"
+    // import cartSlice from "../features/cartSlice"
     import detailSlice from "../features/detailReducer";
     // import storage from 'redux-persist/lib/storage'
     // import { persistReducer } from 'redux-persist';
@@ -11,6 +11,7 @@
    import mailReducer from '../features/mail/mailSlice'
 import payReducer from '../features/pay/paySlice';
 // import { version } from 'react';
+import cartSlice from '../features/carts/cartSlice'
 
 
 
@@ -35,6 +36,7 @@ import payReducer from '../features/pay/paySlice';
          filter: filterReducer,
          categories:categoryReducer,
          mails: mailReducer,
+        //  carts:cartReducer
         }
     });
 

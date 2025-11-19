@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 // import { useGetProductByIdQuery } from "../features/apiSlice";
 import { fetchProduct } from '../features/productSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, incrementQuantity, decrementQuantity, removeItem } from '../features/cartSlice'
+import { addToCart } from '../features/carts/cartSlice'
 
 const DetailPage = () => {
    const dispatch = useDispatch()
