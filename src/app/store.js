@@ -10,6 +10,7 @@
    import categoryReducer from '../features/category/categorySlice';
    import mailReducer from '../features/mail/mailSlice'
 import payReducer from '../features/pay/paySlice';
+import orderReducer from '../features/orders/orderSlice'
 // import { version } from 'react';
 import cartSlice from '../features/carts/cartSlice'
 
@@ -37,6 +38,7 @@ import cartSlice from '../features/carts/cartSlice'
          categories:categoryReducer,
          mails: mailReducer,
         //  carts:cartReducer
+        orders:orderReducer,
         }
     });
 

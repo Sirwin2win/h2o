@@ -66,7 +66,14 @@ const Sidebar = () => {
         <BiPurchaseTag  size={24} />
         {/* <FaUserAlt size={24} /> */}
         <span className={`ml-4 md:block ${isOpen?"block":"hidden"}`}>
-         <Link to={'manage-product'}>My Orders</Link>
+         <Link to={'manage-product'}>My Products</Link>
+         </span>  
+      </li>
+      <li className='flex items-center p-4 hover:bg-gray-700 cursor-pointer'>
+        <BiPurchaseTag  size={24} />
+        {/* <FaUserAlt size={24} /> */}
+        <span className={`ml-4 md:block ${isOpen?"block":"hidden"}`}>
+         <Link to={'order'}>My Orders</Link>
          </span>  
       </li>
       {user.role == 'admin' &&

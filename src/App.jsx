@@ -31,6 +31,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import AuthStatusDisplay from './components/AuthStatusDisplay'
 import ProductStatusDisplay from './components/ProductStatusDisplay'
 import ProductForm from './forms/ProductForm'
+import PaymentSuccess from './components/PaymentSuccess'
+import Pay from './components/Pay'
+import Orders from './components/Orders'
+import OrderDetail from './components/OrderDetail'
 
 
 
@@ -53,6 +57,8 @@ function App() {
     <Route path='/product/:id' element={<DetailPage />} />
     <Route path='/edit/:id' element={<EditProductForm />} />
     <Route path='/create-product' element={<ProductForm />} />
+    <Route path='/pay' element={<Pay />} />
+    <Route path='/payment-success' element={<PaymentSuccess />} />
     <Route path='/login' element={<Login />} />
     <Route path='/register' element={<RegisterForm />} />
     <Route path='/cart' element={
@@ -73,6 +79,8 @@ function App() {
       }>
     <Route path='manage-product' element={<ManageProducts />} />
     <Route path='manage-category' element={<ManageCategory />} />
+        <Route path='order' element={<Orders />} />
+    <Route path='order/:userId' element={<OrderDetail />} /> 
     <Route path='role' element={<UserRoleForm />} />
       </Route>
       <Route path='reset-email' element={<ResetEmailForm />} />

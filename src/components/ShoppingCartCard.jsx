@@ -1,18 +1,19 @@
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { addPay } from '../features/pay/paySlice'
+import { createOrder } from '../features/orders/orderSlice'
 import { increaseCart, descreaseCart, removeFromCart, clearCart } from '../features/carts/cartSlice'
 
 
-
+// 5061 2012 2024 1030 095
 
 
 const ShoppingCartCard = () => {
 // const {items} = useSelector((state)=> state.cart)
 // const cartNo = useSelector(state => state.cart.totalQuantity)
-const {cartItems, totalQuantity, totalAmount} =  useSelector((state)=> state.cart) 
-console.log(cartItems)
+// const {cartItems, totalQuantity, totalAmount} =  useSelector((state)=> state.cart) 
+const {orderRef} =  useSelector((state)=> state.orders) 
+// console.log(cartItems)
 const user = useSelector((state)=>state.auth.user)
  const dispatch = useDispatch()
  const navigate = useNavigate()
@@ -24,32 +25,45 @@ const user = useSelector((state)=>state.auth.user)
 //   }
 //   return sum
 // }
-
-
+const { totalQuantity, totalAmount} =  useSelector((state)=> state.cart) 
+const cartItems = useSelector(state=>state.cart.cartItems)
+// console.log(user.id)
   const handleSubmit = (e) => {
     e.preventDefault();
     // const fullName = `${user.firstName} ${user.lastName}`;
     const checkout = {
-     name:user.name,
-     email:user.email,
-     amount:totalAmount
+      totalAmount,
+      userId:user.id,
+      items: cartItems.map(item => ({
+      product_id: item.id,
+      product_name: item.title,
+      quantity: item.quantity,
+      price:item.price
+    }))
     };
+ 
     // console.log(checkout);
-    dispatch(addPay(checkout));
+     dispatch(createOrder(checkout));
+  
+
+console.log(orderRef);
+     
+     
+
   };
+  useEffect(()=>{
+    if(orderRef){
+     navigate('/pay',{
+        state:{
+          orderRef,
+          totalAmount
+        }
+      });
+    }
+  },[orderRef,totalAmount,navigate])
 
 // console.log(items)
 
- const { paymentUrl, loading, error } = useSelector((state) => state.pay);
-   useEffect(() => {
-    if (paymentUrl) {
-      // Either open in new tab
-      window.open(paymentUrl, '_blank');
-
-      // Or redirect in same tab
-      // window.location.href = paymentUrl;
-    }
-  }, [paymentUrl]);
 
     useEffect(() => {
     if (!user) {
@@ -148,8 +162,9 @@ const user = useSelector((state)=>state.auth.user)
           <span>Total cost</span>
           <span>₦{totalAmount}</span>
         </div>
+       
         <button  onClick={handleSubmit}  className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Checkout
+              Checkout(₦{totalAmount})
             </button>
         {/* <Link to={'/checkout'}  className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Checkout
