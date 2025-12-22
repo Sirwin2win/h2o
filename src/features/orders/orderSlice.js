@@ -47,6 +47,7 @@ const orderSlice = createSlice({
   name: 'orders',
   initialState: {
     orders: [],
+    order: [],
     orderRef:null,
     totalAmount:0,
     currentOrder: null,  // for editing / viewing one
@@ -82,7 +83,7 @@ const orderSlice = createSlice({
       })
       .addCase(fetchOrder.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.currentProduct = action.payload;
+        state.order = action.payload;
       })
       .addCase(fetchOrder.rejected, (state, action) => {
         state.status = 'failed';
