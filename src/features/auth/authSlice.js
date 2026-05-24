@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
-import {jwtDecode} from 'jwt-decode';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
-const API_URL = 'https://api.buywaterh2o.com/api/auth' 
+const API_URL = "https://api.buywaterh2o.com/api/auth";
 
 // Get user from localStorage
-const token = localStorage.getItem('token');
+const token = localStorage.getItem("token");
 let user = null;
 
 if (token) {
@@ -18,69 +18,84 @@ if (token) {
       token,
     };
   } catch (err) {
-    console.error('Invalid token', err);
+    console.error("Invalid token", err);
   }
 }
 
 // 🔐 Get Users
 export const getUsers = createAsyncThunk(
-  'auth/getUsers',
+  "auth/getUsers",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.get(API_URL)
-      return res.data // { user, token }
+      const res = await axios.get(API_URL);
+      return res.data; // { user, token }
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data || { message: 'Something went wrong' })
-
+      return thunkAPI.rejectWithValue(
+        err.response?.data || { message: "Something went wrong" },
+      );
     }
-  }
-)
+  },
+);
 
+/**
+ * Delete my Account
+ */
 
+export const deleteMe = createAsyncThunk(
+  "users/deleteMe",
+  async (id, thunkAPI) => {
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      return id;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
 
 export const updateRole = createAsyncThunk(
-  'users/update',
+  "users/update",
   async ({ id, role }, thunkAPI) => {
     try {
-       const res = await axios.put(`${API_URL}/update-role`, {
+      const res = await axios.put(`${API_URL}/update-role`, {
         role,
-        id
-       })
+        id,
+      });
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
     }
-  }
+  },
 );
-
 
 // 🔐 Register
 export const register = createAsyncThunk(
-  'auth/register',
-  async ({ name, email, password, address, phone}, thunkAPI) => {
+  "auth/register",
+  async ({ name, email, password, address, phone }, thunkAPI) => {
     try {
       const res = await axios.post(`${API_URL}/register`, {
         name,
         email,
         password,
-        address, 
-        phone
-      })
+        address,
+        phone,
+      });
 
       // localStorage.setItem('token', res.data.token)
       // console.log(res.data)
 
-      return res.data // { user, token }
+      return res.data; // { user, token }
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data || { message: 'Something went wrong' })
-
+      return thunkAPI.rejectWithValue(
+        err.response?.data || { message: "Something went wrong" },
+      );
     }
-  }
-)
+  },
+);
 
 // 🔐 Login
 export const login = createAsyncThunk(
-  'auth/login',
+  "auth/login",
   async ({ email, password }, thunkAPI) => {
     try {
       const res = await axios.post(`${API_URL}/login`, {
@@ -89,7 +104,7 @@ export const login = createAsyncThunk(
       });
 
       // Store token (and possibly user info) in localStorage
-      localStorage.setItem('token', res.data.token);
+      localStorage.setItem("token", res.data.token);
 
       // Optional: if your backend sends user data, store it too
       // localStorage.setItem('user', JSON.stringify(res.data.user));
@@ -98,25 +113,27 @@ export const login = createAsyncThunk(
     } catch (err) {
       // Better safe fallback error message
       return thunkAPI.rejectWithValue(
-        err.response?.data || { message: 'Something went wrong. Please try again.' }
+        err.response?.data || {
+          message: "Something went wrong. Please try again.",
+        },
       );
     }
-  }
+  },
 );
 
 // 🔓 Logout
-export const logout = createAsyncThunk('auth/logout', async () => {
-  localStorage.removeItem('token')
-})
+export const logout = createAsyncThunk("auth/logout", async () => {
+  localStorage.removeItem("token");
+});
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
     user,
-    users:[],
-    status: 'idle',
+    users: [],
+    status: "idle",
     error: null,
-    initialized: false, 
+    initialized: false,
   },
   reducers: {
     // setCredentials: (state, action) => {
@@ -139,82 +156,101 @@ const authSlice = createSlice({
     builder
       // Get Users
       .addCase(getUsers.pending, (state) => {
-        state.status = 'loading'
-        state.error = null
+        state.status = "loading";
+        state.error = null;
       })
       .addCase(getUsers.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+        state.status = "succeeded";
         state.users = action.payload;
       })
       .addCase(getUsers.rejected, (state, action) => {
-        state.status = 'failed'
-       state.error = action.payload;
+        state.status = "failed";
+        state.error = action.payload;
       })
-     // update user
-           .addCase(updateRole.pending, (state) => {
-             state.status = 'loading';
-             state.error = null;
-           })
-          .addCase(updateRole.fulfilled, (state, action) => {
-             state.loading = false;
-             const index = state.users.findIndex(p => p.id === action.payload.id);
-             if (index !== -1) {
-               state.users[index] = action.payload;
-             }
-             state.currentProduct = action.payload;
-           })
-           .addCase(updateRole.rejected, (state, action) => {
-             state.status = 'failed';
-             state.error = action.payload;
-           })
+      // update user
+      .addCase(updateRole.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(updateRole.fulfilled, (state, action) => {
+        state.loading = false;
+        const index = state.users.findIndex((p) => p.id === action.payload.id);
+        if (index !== -1) {
+          state.users[index] = action.payload;
+        }
+        state.currentProduct = action.payload;
+      })
+      .addCase(updateRole.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
       // Register
       .addCase(register.pending, (state) => {
-        state.status = 'loading'
-        state.error = null
+        state.status = "loading";
+        state.error = null;
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.status = 'succeeded'
-        state.user = action.payload.user
-        state.token = action.payload.token
+        state.status = "succeeded";
+        state.user = action.payload.user;
+        state.token = action.payload.token;
       })
       .addCase(register.rejected, (state, action) => {
-        state.status = 'failed'
-        state.error = action.payload?.message || 'Registration failed'
+        state.status = "failed";
+        state.error = action.payload?.message || "Registration failed";
       })
       // Login
       .addCase(login.pending, (state) => {
-        state.status = 'loading'
-        state.error = null
+        state.status = "loading";
+        state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+        state.status = "succeeded";
         // state.user = action.payload.user
         // state.token = action.payload.token
-         const { token } = action.payload;
-           try {
-        const decoded = jwtDecode(token);
-        state.user = {
-          id: decoded.id,
-          email: decoded.email,
-          role: decoded.role,
-          token,
-        };
-        localStorage.setItem('token', token);
-      } catch (err) {
-        console.error('Token decode failed:', err);
-      }
+        const { token } = action.payload;
+        try {
+          const decoded = jwtDecode(token);
+          state.user = {
+            id: decoded.id,
+            email: decoded.email,
+            role: decoded.role,
+            token,
+          };
+          localStorage.setItem("token", token);
+        } catch (err) {
+          console.error("Token decode failed:", err);
+        }
       })
       .addCase(login.rejected, (state, action) => {
-        state.status = 'failed'
-        state.error = action.payload?.message || 'Login failed'
+        state.status = "failed";
+        state.error = action.payload?.message || "Login failed";
       })
       // Logout
       .addCase(logout.fulfilled, (state) => {
-        state.user = null
-        state.token = null
-        state.status = 'idle'
+        state.user = null;
+        state.token = null;
+        state.status = "idle";
       })
+
+      // Delete Me
+      .addCase(deleteMe.pending, (state) => {
+        state.status = "loading";
+      })
+
+      .addCase(deleteMe.fulfilled, (state, action) => {
+        state.status = "succeeded";
+
+        // Remove deleted user
+        // state.users = state.users.filter((user) => user.id !== action.payload);
+        state.user = null;
+      })
+
+      .addCase(deleteMe.rejected, (state, action) => {
+        state.status = "failed";
+        state.error =
+          action.payload?.message || action.payload || "Something went wrong";
+      });
   },
-})
+});
 export const { setCredentials } = authSlice.actions;
-export default authSlice.reducer
+export default authSlice.reducer;

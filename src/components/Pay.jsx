@@ -39,7 +39,7 @@ const Pay = () => {
     <div>
         <h1>Your Orders</h1>
                 <button  onClick={handleSubmit}  className="bg-blue-700 hover:bg-blue-700 text-white my-5 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Pay(₦{state.totalAmount})
+             {status==='loading'?'please wait ...':` Pay(₦ ${state.totalAmount})`}
             </button>
     </div>
   )

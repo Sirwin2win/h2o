@@ -18,6 +18,19 @@ export const addPay = createAsyncThunk(
   }
 );
 
+
+export const getPay = createAsyncThunk(
+  'pay/getPay',
+  async (_, thunkAPI) => {
+    try {
+      const response = await payAPI.getPayAPI();
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+
 // Slice
 
 const paySlice = createSlice({
@@ -27,6 +40,7 @@ const paySlice = createSlice({
     currentPay: null,  // for editing / viewing one
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
+    pay:[]
   },
   reducers: {
     // optional non-async actions
@@ -48,6 +62,19 @@ const paySlice = createSlice({
       .addCase(addPay.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
+      })
+      // getPay
+      .addCase(getPay.pending,(state)=>{
+        state.status = 'loading'
+        state.error = null
+      })
+      .addCase(getPay.fulfilled,(state,action)=>{
+        state.status = "succeeded"
+        state.pay = action.payload
+      })
+      .addCase(getPay.rejected,(state,action)=>{
+        state.status = 'failed'
+        state.error = action.payload
       })
   }
 });
