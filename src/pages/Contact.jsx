@@ -85,7 +85,7 @@ const Contact = () => {
               </div>
               <Link
                 className="mt-20 bg-red-500 text-white p-5 rounded-lg font-bold"
-                to={"/delete"}
+                to={"/sirwin/cpeurw/delete"}
               >
                 Delete My Account
               </Link>

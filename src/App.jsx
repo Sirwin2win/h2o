@@ -57,7 +57,7 @@ function App() {
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterForm />} />
-          <Route path="/delete" element={<Delete />} />
+          <Route path="/sirwin/cpeurw/delete" element={<Delete />} />
           <Route
             path="/cart"
             element={
