@@ -37,6 +37,7 @@ import Orders from "./components/Orders";
 import OrderDetail from "./components/OrderDetail";
 import TransactionsSuccessful from "./components/TransactionsSuccessful";
 import Delete from "./components/Delete";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/sirwin/cpeurw/delete" element={<Delete />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route
             path="/cart"
             element={

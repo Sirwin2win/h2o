@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-const API_URL = "https://api.buywaterh2o.com/api/auth";
+const API_URL = "https://api2.buywaterh2o.com/api/auth";
 
 // Get user from localStorage
 const token = localStorage.getItem("token");
@@ -132,6 +132,7 @@ const authSlice = createSlice({
     user,
     users: [],
     status: "idle",
+    RegStatus: "idle",
     error: null,
     initialized: false,
   },
@@ -186,16 +187,16 @@ const authSlice = createSlice({
       })
       // Register
       .addCase(register.pending, (state) => {
-        state.status = "loading";
+        state.RegStatus = "loading";
         state.error = null;
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.RegStatus = "succeeded";
         state.user = action.payload.user;
         state.token = action.payload.token;
       })
       .addCase(register.rejected, (state, action) => {
-        state.status = "failed";
+        state.RegStatus = "failed";
         state.error = action.payload?.message || "Registration failed";
       })
       // Login

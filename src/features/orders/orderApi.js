@@ -1,8 +1,8 @@
 // src/features/products/productAPI.js
 
-import axios from 'axios';
+import axios from "axios";
 
-const API_BASE = 'https://api.buywaterh2o.com/api/orders';
+const API_BASE = "https://api2.buywaterh2o.com/api/orders";
 
 export const fetchOrdersAPI = () => axios.get(API_BASE);
 export const fetchOrderByIdAPI = (userId) => axios.get(`${API_BASE}/${userId}`);
