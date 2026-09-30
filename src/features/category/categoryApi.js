@@ -10,3 +10,22 @@ export const createCategoryAPI = (category) => axios.post(API_BASE, category);
 export const updateCategoryAPI = (id, category) =>
   axios.put(`${API_BASE}/${id}`, category);
 export const deleteCategoryAPI = (id) => axios.delete(`${API_BASE}/${id}`);
+
+export const createEstateAPI = (estate, token) =>
+  axios.post(API_BASE, estate, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+export const updateEstateAPI = (id, formData, token) =>
+  axios.patch(`${API_BASE}/${id}`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+export const deleteEstateAPI = (id, token) =>
+  axios.delete(`${API_BASE}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });

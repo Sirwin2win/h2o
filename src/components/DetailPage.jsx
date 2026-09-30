@@ -217,7 +217,7 @@ const DetailPage = () => {
               <button
                 id="mobileAdd"
                 className="w-full bg-blue-700 text-white rounded-full py-3 font-semibold shadow-lg"
-                onClick={() => dispatch(addToCart(product))}
+                onClick={() => dispatch(addToCart(currentProduct))}
               >
                 {" "}
                 Add to Cart
