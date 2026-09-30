@@ -54,16 +54,14 @@ const ShoppingCartCard = () => {
 
     console.log(orderRef);
   };
-   useEffect(() => {
-        if (orderRef) {
-          // Either open in new tab
-          window.open(orderRef.checkout_url, '_blank');
-    
-          // Or redirect in same tab
-          // window.location.href = checkout_url;
-  
-        }
-      }, [orderRef]);
+useEffect(() => {
+  const checkoutUrl = orderRef?.payment?.checkout_url;
+
+  if (checkoutUrl) {
+    window.location.href = checkoutUrl;
+  }
+}, [orderRef]);
+
   // useEffect(() => {
   //   if (orderRef) {
   //     navigate("/pay", {
