@@ -33,7 +33,8 @@ export const createOrder = createAsyncThunk(
   'orders/createOrder',
   async (checkout, thunkAPI) => {
     try {
-      const response = await orderAPI.createOrderAPI(checkout);
+      const token = localStorage.getItem("token");
+      const response = await orderAPI.createOrderAPI(checkout,token);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);

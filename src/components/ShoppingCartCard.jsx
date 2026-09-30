@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect ,useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { createOrder } from "../features/orders/orderSlice";
@@ -21,12 +21,26 @@ const ShoppingCartCard = () => {
   const { totalQuantity, totalAmount } = useSelector((state) => state.cart);
   const cartItems = useSelector((state) => state.cart.cartItems);
   // console.log(user.id)
+  
+      const [form, setForm] = useState({
+        customer_name: '',
+        customer_email: '',
+        customer_phone: '',
+        shipping_address: '',
+      })
+    const {customer_name,customer_email,customer_phone,shipping_address} = form
+      const handleChange = (e) =>
+        setForm({ ...form, [e.target.name]: e.target.value })
   const handleSubmit = (e) => {
     e.preventDefault();
     // const fullName = `${user.firstName} ${user.lastName}`;
     const checkout = {
       totalAmount,
       userId: user.id,
+        customer_name,
+        customer_email,
+        customer_phone,
+        shipping_address,
       items: cartItems.map((item) => ({
         product_id: item.id,
         product_name: item.title,
@@ -40,16 +54,26 @@ const ShoppingCartCard = () => {
 
     console.log(orderRef);
   };
-  useEffect(() => {
-    if (orderRef) {
-      navigate("/pay", {
-        state: {
-          orderRef,
-          totalAmount,
-        },
-      });
-    }
-  }, [orderRef, totalAmount, navigate]);
+   useEffect(() => {
+        if (orderRef) {
+          // Either open in new tab
+          window.open(orderRef.checkout_url, '_blank');
+    
+          // Or redirect in same tab
+          // window.location.href = checkout_url;
+  
+        }
+      }, [orderRef]);
+  // useEffect(() => {
+  //   if (orderRef) {
+  //     navigate("/pay", {
+  //       state: {
+  //         orderRef,
+  //         totalAmount,
+  //       },
+  //     });
+  //   }
+  // }, [orderRef, totalAmount, navigate]);
 
   useEffect(() => {
     if (!user) {
@@ -186,6 +210,73 @@ const ShoppingCartCard = () => {
           >
             Clear Cart
           </button>
+          <form >
+            
+          <div className="py-2">
+            <label
+              htmlFor="customer_name"
+              className="font-semibold inline-block mb-3 text-sm uppercase"
+            >
+              Customer Name
+            </label>
+            <input
+              type="text"
+              id="customer_name"
+              name="customer_name"
+              placeholder="Enter your name"
+              onChange={handleChange}
+              className="p-2 text-sm w-full border border-blue-400 rounded-lg"
+            />
+          </div>
+          <div className="py-2">
+            <label
+              htmlFor="customer_email"
+              className="font-semibold inline-block mb-3 text-sm uppercase"
+            >
+              Customer Email
+            </label>
+            <input
+              type="text"
+              id="customer_email"
+              name="customer_email"
+              placeholder="Enter your email"
+              onChange={handleChange}
+              className="p-2 text-sm w-full border border-blue-400 rounded-lg"
+            />
+          </div>
+          <div className="py-2">
+            <label
+              htmlFor="customer_phone"
+              className="font-semibold inline-block mb-3 text-sm uppercase"
+            >
+              Customer Phone
+            </label>
+            <input
+              type="text"
+              id="customer_phone"
+              name="customer_phone"
+              placeholder="Enter your phone number"
+              onChange={handleChange}
+              className="p-2 text-sm w-full border border-blue-400 rounded-lg"
+            />
+          </div>
+          <div className="py-2">
+            <label
+              htmlFor="shipping_address"
+              className="font-semibold inline-block mb-3 text-sm uppercase"
+            >
+              Shipping Address
+            </label>
+            <input
+              type="text"
+              id="shipping_address"
+              name="shipping_address"
+              placeholder="Enter your address"
+              onChange={handleChange}
+              className="p-2 text-sm w-full border border-blue-400 rounded-lg"
+            />
+          </div>
+          {/* </form> */}
           <div className="border-t mt-8">
             <div className="flex font-semibold justify-between py-6 text-sm uppercase">
               <span>Total cost</span>
@@ -199,6 +290,7 @@ const ShoppingCartCard = () => {
               Checkout(₦{totalAmount})
             </button>
           </div>
+          </form>
         </div>
       </div>
     </div>
