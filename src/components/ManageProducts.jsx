@@ -51,7 +51,7 @@ const ManageProducts = () => {
          <tr className="border-b" key={product.id}>
       <td className="px-2 py-2">{product.id}</td>
       <td className="px-2 py-2">{product.title}</td>
-      <td className="px-2 py-2"><img src={`https://api.buywaterh2o.com/${product.image}`} alt='' className='size-30' /></td>
+      <td className="px-2 py-2"><img src={`https://api2.buywaterh2o.com/${product.image}`} alt='' className='size-30' /></td>
       <td className="px-2 py-2">₦{product.price}</td>
       {user.role == 'admin'?
 

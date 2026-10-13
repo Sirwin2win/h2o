@@ -11,7 +11,7 @@ export default defineConfig({
    server: {
     proxy: {
       '/api': {
-        target: 'https://api.buywaterh2o.com',
+        target: 'https://api2.buywaterh2o.com',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }
