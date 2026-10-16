@@ -38,6 +38,7 @@ import OrderDetail from "./components/OrderDetail";
 import TransactionsSuccessful from "./components/TransactionsSuccessful";
 import Delete from "./components/Delete";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import PaymentFailed from "./components/PaymentFailed";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/sirwin/cpeurw/delete" element={<Delete />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+           <Route path="/payment/failed" element={<PaymentFailed />} />
           <Route
             path="/cart"
             element={
@@ -98,6 +100,7 @@ function App() {
           <Route path="reset-email" element={<ResetEmailForm />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/dealer" element={<Dealer />} />
+         
         </Route>
       </Routes>
       {/* <ToastContainer /> */}

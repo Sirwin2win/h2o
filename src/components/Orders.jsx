@@ -1,16 +1,16 @@
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchOrder } from '../features/orders/orderSlice'
+import { fetchOrderByUserId } from '../features/orders/orderSlice'
 
 const Orders = () => {
    const user = useSelector((state)=>state.auth.user)
   const {order, orders} = useSelector(state=>state.orders)
   const dispatch = useDispatch()
   useEffect(()=>{
-    if(user.id){
-      dispatch(fetchOrder(user.id))
+    if(order){
+      dispatch(fetchOrderByUserId())
     }
-  },[dispatch,user.id])
+  },[dispatch])
   return (
     <div>
         <h1>Orders</h1>

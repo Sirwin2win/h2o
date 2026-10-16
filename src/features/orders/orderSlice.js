@@ -42,6 +42,32 @@ export const fetchOrderByUserId = createAsyncThunk(
   },
 );
 
+export const fetchByOrderRef = createAsyncThunk(
+  "orders/fetchByOrderRef",
+  async (orderRef, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return thunkAPI.rejectWithValue("Authentication token not found");
+      }
+
+      const response = await orderAPI.fetchByOrderRefAPI(
+        orderRef,
+        token
+      );
+
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message ||
+        err.response?.data ||
+        err.message
+      );
+    }
+  }
+);
+
 export const createOrder = createAsyncThunk(
   "orders/createOrder",
   async (checkout, thunkAPI) => {
@@ -56,15 +82,34 @@ export const createOrder = createAsyncThunk(
 );
 export const verifyPay = createAsyncThunk(
   "orders/verifyPay",
-  async (checkout, thunkAPI) => {
+  async (transaction_id, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await orderAPI.createPayAPI(checkout, token);
-      return response.data;
+
+      // const response = await orderAPI.createPayAPI(
+      //   transaction_id,
+      //   token
+      // );
+
+      // return response.data;
+      const response = await orderAPI.createPayAPI(
+  transaction_id,
+  token
+);
+
+if (!response.data.success) {
+  return thunkAPI.rejectWithValue(
+    response.data.message || "Payment verification failed"
+  );
+}
+
+return response.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+      return thunkAPI.rejectWithValue(
+        err.response?.data || err.message
+      );
     }
-  },
+  }
 );
 
 // Slice
@@ -72,18 +117,19 @@ export const verifyPay = createAsyncThunk(
 const orderSlice = createSlice({
   name: "orders",
   initialState: {
-    orders: [],
-    order: [],
-    userOrder: [],
-    orderRef: null,
-    paymentVerified: null,
-    totalAmount: 0,
-    currentOrder: null, // for editing / viewing one
-    status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
-    verifyStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
-    orderStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
-    error: null,
-  },
+  orders: [],
+  order: [],
+  userOrder: [],
+  orderRef: null,
+  paymentVerified: null,
+  totalAmount: 0,
+  currentOrder: null,
+  status: "idle",
+  verifyStatus: "idle",
+  refStatus: "idle",
+  orderStatus: "idle",
+  error: null,
+},
   reducers: {
     // optional non-async actions
     clearCurrentOrder(state) {
@@ -98,9 +144,9 @@ const orderSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchOrders.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.products = action.payload;
-      })
+  state.status = "succeeded";
+  state.orders = action.payload;
+})
       .addCase(fetchOrders.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
@@ -130,6 +176,19 @@ const orderSlice = createSlice({
       })
       .addCase(fetchOrderByUserId.rejected, (state, action) => {
         state.orderStatus = "failed";
+        state.error = action.payload;
+      })
+       // fetch by order ref
+      .addCase(fetchByOrderRef.pending, (state) => {
+        state.refStatus = "loading";
+        state.error = null;
+      })
+      .addCase(fetchByOrderRef.fulfilled, (state, action) => {
+        state.refStatus = "succeeded";
+        state.orderRef = action.payload;
+      })
+      .addCase(fetchByOrderRef.rejected, (state, action) => {
+        state.refStatus = "failed";
         state.error = action.payload;
       })
 

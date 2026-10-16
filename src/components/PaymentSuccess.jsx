@@ -1,31 +1,40 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import axios from "axios";
-import { verifyPay } from "../features/orders/orderSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import {
+  fetchByOrderRef
+} from "../features/orders/orderSlice";
+//5061 2012 2024 1030 095
 const PaymentSuccess = () => {
-  // const {transaction_id} = useParams()
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { verifyStatus } = useSelector((state) => state.orders);
-  const transaction_id = searchParams.get("transaction_id");
 
-  useEffect(() => {
-    if (transaction_id) {
-      dispatch(verifyPay(transaction_id));
-    }
-  }, [transaction_id]);
+  // const transactionId = searchParams.get("transaction_id");
+  const orderRefParam = searchParams.get("order_ref");
+console.log(orderRefParam)
+  const {
+    verifyStatus,
+    error,
+    refStatus,
+  } = useSelector((state) => state.orders);
 
-  useEffect(() => {
-    if (verifyStatus) {
-      navigate("/oders");
-    }
-  }, [verifyStatus]);
 
-  //5061 2012 2024 1030 095
-  return <h2>Verifying payment... </h2>;
+useEffect(() => {
+  if (orderRefParam) {
+    dispatch(fetchByOrderRef(orderRefParam));
+  }
+}, [orderRefParam, dispatch]);
+
+useEffect(() => {
+  if (refStatus === "succeeded") {
+    navigate("order", { replace: true });
+  }
+}, [refStatus, navigate]);
+
+  return <h2>Verifying payment...</h2>;
 };
 
 export default PaymentSuccess;
+
+  
