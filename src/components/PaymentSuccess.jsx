@@ -13,11 +13,7 @@ const PaymentSuccess = () => {
   // const transactionId = searchParams.get("transaction_id");
   const orderRefParam = searchParams.get("order_ref");
 console.log(orderRefParam)
-  const {
-    verifyStatus,
-    error,
-    refStatus,
-  } = useSelector((state) => state.orders);
+  const {refStatus} = useSelector((state) => state.orders);
 
 
 useEffect(() => {
@@ -28,7 +24,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (refStatus === "succeeded") {
-    navigate("order", { replace: true });
+    navigate("/order", { replace: true });
   }
 }, [refStatus, navigate]);
 

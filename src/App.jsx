@@ -62,6 +62,7 @@ function App() {
           <Route path="/sirwin/cpeurw/delete" element={<Delete />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
            <Route path="/payment/failed" element={<PaymentFailed />} />
+           <Route path="/order" element={<Orders />} />
           <Route
             path="/cart"
             element={
@@ -89,7 +90,6 @@ function App() {
           >
             <Route path="manage-product" element={<ManageProducts />} />
             <Route path="manage-category" element={<ManageCategory />} />
-            <Route path="order" element={<Orders />} />
             <Route path="order/:userId" element={<OrderDetail />} />
             <Route path="role" element={<UserRoleForm />} />
             <Route

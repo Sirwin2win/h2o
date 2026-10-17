@@ -4,13 +4,13 @@ import { fetchOrderByUserId } from '../features/orders/orderSlice'
 
 const Orders = () => {
    const user = useSelector((state)=>state.auth.user)
-  const {order, orders} = useSelector(state=>state.orders)
+  const {order, orderStatus} = useSelector(state=>state.orders)
   const dispatch = useDispatch()
   useEffect(()=>{
-    if(order){
+    if(orderStatus==='idle'){
       dispatch(fetchOrderByUserId())
     }
-  },[dispatch])
+  },[dispatch,orderStatus])
   return (
     <div>
         <h1>Orders</h1>
