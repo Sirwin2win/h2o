@@ -35,7 +35,7 @@ export const fetchOrderByUserId = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const response = await orderAPI.fetchOrderByUserIdAPI(token);
-      return response.data;
+      return response.data.orders;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
     }

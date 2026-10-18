@@ -49,7 +49,7 @@ const ShoppingCartCard = () => {
       })),
     };
 
-    // console.log(checkout);
+    console.log(checkout);
     dispatch(createOrder(checkout));
 
     console.log(orderRef);
