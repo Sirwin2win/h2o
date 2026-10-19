@@ -13,26 +13,20 @@ const Orders = () => {
   console.log(order)
   const formatDate = (dateString) => {
   const date = new Date(dateString);
-
   const day = date.getDate();
-
   const suffix =
     day % 10 === 1 && day !== 11 ? "st" :
     day % 10 === 2 && day !== 12 ? "nd" :
     day % 10 === 3 && day !== 13 ? "rd" : "th";
-
   const month = date.toLocaleString("en-GB", {
     month: "short",
   });
-
   const year = date.getFullYear();
-
   return `${day}${suffix}, ${month} ${year}`;
 };
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-10 sm:px-8">
   <div className="mx-auto max-w-4xl">
-
     {/* Page Header */}
     <div className="mb-8">
       <h1 className="text-3xl font-bold text-gray-900">
@@ -42,7 +36,6 @@ const Orders = () => {
         Track your purchases and view order details.
       </p>
     </div>
-
     {/* Orders List */}
     <div className="space-y-6">
       {order.map((v) => (
@@ -63,24 +56,20 @@ const Orders = () => {
                 Placed on {formatDate(v.created_at)}
               </p>
             </div>
-
             <div className="flex flex-wrap gap-2">
               <span className="inline-flex items-center rounded-full bg-green-50 px-3 py-1.5 text-xs font-semibold capitalize text-green-700">
                 Payment: {v.payment_status}
               </span>
-
               <span className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold capitalize text-blue-700">
                 Order: {v.order_status}
               </span>
             </div>
           </div>
-
           {/* Product Details */}
           <div className="p-5 sm:p-6">
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-700">
               Products Ordered ({v.items?.length || 0})
             </h3>
-
             <div className="space-y-4">
               {v.items?.length > 0 ? (
                 v.items.map((item) => (
@@ -90,7 +79,6 @@ const Orders = () => {
                   >
                     {/* Product Image and Information */}
                     <div className="flex min-w-0 items-start gap-4">
-
                       {item.product_image ? (
                         <img
                           src={`https://api2.buywaterh2o.com/${item.product_image}`}
@@ -120,16 +108,13 @@ const Orders = () => {
                           </svg>
                         </div>
                       )}
-
                       <div className="min-w-0">
                         <h4 className="break-words font-semibold text-gray-900">
                           {item.product_title}
                         </h4>
-
                         <p className="mt-1 text-sm text-gray-500">
                           Product ID: {item.product_id}
                         </p>
-
                         <p className="mt-1 text-sm text-gray-600">
                           Qty: {item.quantity} ×{" "}
                           {v.currency === "NGN" ? "₦" : `${v.currency} `}
@@ -138,7 +123,6 @@ const Orders = () => {
                             maximumFractionDigits: 2,
                           })}
                         </p>
-
                         {item.created_at && (
                           <p className="mt-2 text-xs text-gray-400">
                             Item added: {formatDate(item.created_at)}
@@ -146,7 +130,6 @@ const Orders = () => {
                         )}
                       </div>
                     </div>
-
                     {/* Item Subtotal */}
                     <div className="border-t border-gray-200 pt-3 sm:shrink-0 sm:border-0 sm:pt-0 sm:text-right">
                       <p className="text-xs text-gray-500">
@@ -168,104 +151,16 @@ const Orders = () => {
                 </p>
               )}
             </div>
-
-            {/* Shipping Address */}
-            {/* {v.shipping_address && (
-              <div className="mt-5 rounded-xl border border-gray-100 p-4">
-                <div className="flex items-start gap-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="21"
-                    height="21"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="shrink-0 text-gray-500"
-                  >
-                    <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-                    <circle cx="12" cy="10" r="2.5" />
-                  </svg>
-
-                  <div>
-                    <p className="text-sm font-semibold text-gray-800">
-                      Shipping Address
-                    </p>
-                    <p className="mt-1 text-sm leading-6 text-gray-600">
-                      {v.shipping_address}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )} */}
-
-            {/* Order Summary */}
-            {/* <div className="mt-6 border-t border-gray-100 pt-5">
-              <div className="ml-auto max-w-sm space-y-3">
-                <div className="flex justify-between gap-4 text-sm text-gray-600">
-                  <span>Subtotal</span>
-                  <span>
-                    {v.currency === "NGN" ? "₦" : `${v.currency} `}
-                    {Number(v.subtotal).toLocaleString("en-NG", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </span>
-                </div>
-
-                <div className="flex justify-between gap-4 text-sm text-gray-600">
-                  <span>Discount</span>
-                  <span>
-                    −{v.currency === "NGN" ? "₦" : `${v.currency} `}
-                    {Number(v.discount).toLocaleString("en-NG", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </span>
-                </div>
-
-                <div className="flex justify-between gap-4 text-sm text-gray-600">
-                  <span>Shipping Fee</span>
-                  <span>
-                    {v.currency === "NGN" ? "₦" : `${v.currency} `}
-                    {Number(v.shipping_fee).toLocaleString("en-NG", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between gap-4 border-t border-gray-200 pt-4">
-                  <span className="font-semibold text-gray-900">
-                    Total Paid
-                  </span>
-                  <span className="text-xl font-bold text-indigo-600">
-                    {v.currency === "NGN" ? "₦" : `${v.currency} `}
-                    {Number(v.total_amount).toLocaleString("en-NG", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </span>
-                </div>
-              </div>
-            </div> */}
-
             {/* Payment Details */}
             <div className="mt-5 flex flex-col gap-2 border-t border-gray-100 pt-4 text-xs text-gray-500 sm:flex-row sm:items-center sm:justify-between">
               <p>
                 Paid on: {v.paid_at ? formatDate(v.paid_at) : "Not available"}
               </p>
-              {/* <p className="break-all">
-                Payment: {v.payment_provider || "N/A"}
-              </p> */}
             </div>
           </div>
         </div>
       ))}
     </div>
-
     {/* Empty State */}
     {order.length === 0 && (
       <div className="rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-16 text-center">
@@ -281,5 +176,4 @@ const Orders = () => {
 </div>
   )
 }
-
 export default Orders
