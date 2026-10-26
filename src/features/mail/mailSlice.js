@@ -52,6 +52,8 @@ const mailSlice = createSlice({
     mails: [],
     //currentMail: null,  // for editing / viewing one
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    resetStatus: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    updateStatus: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
   },
   reducers: {},
@@ -74,29 +76,29 @@ const mailSlice = createSlice({
       
       // reset mail
       .addCase(resetMail.pending, (state) => {
-        state.status = 'loading';
+        state.resetStatus = 'loading';
         state.error = null;
       })
       .addCase(resetMail.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.mails.push(action.payload);
+        state.resetStatus = 'succeeded';
+        state.mails=action.payload;
       })
       .addCase(resetMail.rejected, (state, action) => {
-        state.status = 'failed';
+        state.resetStatus = 'failed';
         state.error = action.payload;
       })
       
       // update mail
       .addCase(updateMail.pending, (state) => {
-        state.status = 'loading';
+        state.updateStatus = 'loading';
         state.error = null;
       })
       .addCase(updateMail.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.updateStatus = 'succeeded';
         state.mails.push(action.payload);
       })
       .addCase(updateMail.rejected, (state, action) => {
-        state.status = 'failed';
+        state.updateStatus = 'failed';
         state.error = action.payload;
       })
 

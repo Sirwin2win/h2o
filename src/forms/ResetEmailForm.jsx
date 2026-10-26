@@ -10,10 +10,11 @@ const ResetEmailForm = () => {
     const [formData, setFormData] = useState({
       email:"",
     });
-    const { email } = formData;
+    
   
   //   const { categories } = useSelector((state) => state.categories);
   // 
+  const {resetStatus} = useSelector(state=>state.mails)
   const handleChange = (e) => {
       setFormData((prevState) => ({
         ...prevState,
@@ -23,11 +24,8 @@ const ResetEmailForm = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       // const fullName = `${user.firstName} ${user.lastName}`;
-      const mail = {
-       email,
-      };
-   
-      dispatch(resetMail(mail));
+      
+      dispatch(resetMail(formData.email));
       setFormData({
        email:""
       });
@@ -49,20 +47,23 @@ const ResetEmailForm = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-700" htmlFor="email">Email Address</label>
                   <input
-                    type="text"
-                    id="email"
-                     onChange={handleChange}
-                      name="email"
-                    className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
-                    required
-                  />
+  type="email"
+  id="email"
+  name="email"
+  value={formData.email}
+  onChange={handleChange}
+  placeholder="Enter your registered email"
+  autoComplete="email"
+  className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+  required
+/>
                 </div>
                 <button
                   type="submit"
                   onClick={handleSubmit}
                   className="w-full flex justify-center py-2 px-4 sm:py-3 border border-transparent rounded-lg shadow-sm text-sm sm:text-base font-medium text-white bg-blue-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
-                  <span>Send Reset Link</span>
+                  <span>{resetStatus==='loading'?"Sending mail...":'Send Reset Link'}</span>
                 </button>
               </form>
     
