@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchByOrderRef
 } from "../features/orders/orderSlice";
-//5061 2012 2024 1030 095
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();

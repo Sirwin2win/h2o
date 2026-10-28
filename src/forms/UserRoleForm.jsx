@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import logo from '../assets/images/logo.jpg'
-import {getUsers,updateRole} from '../features/auth/authSlice'
+import {fetchUsers,updateRole} from '../features/auth/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -42,7 +42,7 @@ const UserRoleForm = () => {
 
   useEffect(()=>{
     if(status==='idle'){
-      dispatch(getUsers())
+      dispatch(fetchUsers())
     }
   },[status, dispatch])
   if(status === "loading"){

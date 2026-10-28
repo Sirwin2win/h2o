@@ -2,11 +2,14 @@ import axios from "axios";
 
 const API_URL = "https://api2.buywaterh2o.com/api/auth/";
 
-// Get users
-const getUsers = async () => {
-  const response = await axios.get(API_URL);
-  return response.data;
-};
+
+// Fetch all users (admin only)
+export const fetchUsersAPI = (token) =>
+  axios.get(API_BASE, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
 // Register user
 const register = async (user) => {
