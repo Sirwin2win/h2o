@@ -63,6 +63,31 @@ export const fetchUsers = createAsyncThunk(
 
 
 // ==========================================
+// FETCH ALL USERS (ADMIN ONLY)
+// ==========================================
+export const fetchPermissions = createAsyncThunk(
+  "auth/fetchPermissions",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(`${API_URL}/permissions`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data || err.message
+      );
+    }
+  }
+);
+
+
+// ==========================================
 // DELETE USER ACCOUNT
 // ==========================================
 export const deleteMe = createAsyncThunk(
@@ -91,7 +116,7 @@ export const deleteMe = createAsyncThunk(
 // UPDATE USER ROLE
 // ==========================================
 export const updateRole = createAsyncThunk(
-  "users/updateRole",
+  "auth/updateRole",
   async ({ id, role }, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
@@ -200,8 +225,10 @@ const authSlice = createSlice({
     users: [],
     status: "idle",
     RegStatus: "idle",
+    PermStatus: "idle",
     error: null,
     initialized: true,
+    permissions:[]
   },
 
   reducers: {
@@ -226,6 +253,20 @@ const authSlice = createSlice({
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.status = "failed";
+        state.error = action.payload;
+      })
+
+      // FETCH PERMISSIONS
+      .addCase(fetchPermissions.pending, (state) => {
+        state.PermStatus = "loading";
+        state.error = null;
+      })
+      .addCase(fetchPermissions.fulfilled, (state, action) => {
+        state.PermStatus = "succeeded";
+        state.users = action.payload || [];
+      })
+      .addCase(fetchPermissions.rejected, (state, action) => {
+        state.PermStatus = "failed";
         state.error = action.payload;
       })
 

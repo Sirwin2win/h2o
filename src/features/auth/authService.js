@@ -11,6 +11,14 @@ export const fetchUsersAPI = (token) =>
     },
   });
 
+// Fetch all permissions (admin only)
+export const fetchPermissionsAPI = (token) =>
+  axios.get(`${API_BASE}/permissions`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 // Register user
 const register = async (user) => {
   const response = await axios.post(API_URL + "register", user);

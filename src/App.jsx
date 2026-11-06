@@ -39,6 +39,7 @@ import TransactionsSuccessful from "./components/TransactionsSuccessful";
 import Delete from "./components/Delete";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import PaymentFailed from "./components/PaymentFailed";
+import { AssignPermissions } from "./components/AssignPermissions";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
            <Route path="/payment/failed" element={<PaymentFailed />} />
            <Route path="/order" element={<Orders />} />
+           <Route path="/assign-permissions" element={<AssignPermissions />} />
           <Route
             path="/cart"
             element={
