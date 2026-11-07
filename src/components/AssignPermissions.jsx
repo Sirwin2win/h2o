@@ -5,7 +5,7 @@ import { fetchPermissions } from '../features/auth/authSlice'
 
 
 export const AssignPermissions = () => {
-    const {PermStatus,permissions} = useSelector(state=>state.auth)
+    const {PermStatus,permissions,error} = useSelector(state=>state.auth)
     const dispatch = useDispatch()
     
       useEffect(()=>{
@@ -16,8 +16,8 @@ export const AssignPermissions = () => {
       if(PermStatus === "loading"){
         return <div>Loading...</div>
       }
-      if(PermStatus === 'faile'){
-        return <div>Error : {error}</div>
+      if(error){
+        return <div className='text-red-500'>Error : {error.message}</div>
       }
       console.log(permissions)
     

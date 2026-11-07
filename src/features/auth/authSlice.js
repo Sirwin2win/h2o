@@ -77,7 +77,7 @@ export const fetchPermissions = createAsyncThunk(
         },
       });
 
-      return response.data;
+      return response.data.permissions;
     } catch (err) {
       return thunkAPI.rejectWithValue(
         err.response?.data || err.message
@@ -263,7 +263,7 @@ const authSlice = createSlice({
       })
       .addCase(fetchPermissions.fulfilled, (state, action) => {
         state.PermStatus = "succeeded";
-        state.users = action.payload || [];
+        state.permissions = action.payload || [];
       })
       .addCase(fetchPermissions.rejected, (state, action) => {
         state.PermStatus = "failed";
