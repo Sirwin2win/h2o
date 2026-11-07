@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 
 const API_URL = "https://api2.buywaterh2o.com/api/auth";
 
+
 // ==========================================
 // INITIAL USER FROM LOCAL STORAGE
 // ==========================================
@@ -46,7 +47,7 @@ export const fetchUsers = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.get(`${API_URL}/users`, {
+      const response = await axios.get(`${API_URL}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -88,6 +89,90 @@ export const fetchPermissions = createAsyncThunk(
 
 
 // ==========================================
+// FETCH ALL ROLES (ADMIN ONLY)
+// ==========================================
+export const fetchRoles = createAsyncThunk(
+  "auth/fetchRoles",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(`${API_URL}/roles`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data.roles;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data || err.message
+      );
+    }
+  }
+);
+
+
+
+// ==========================================
+// FETCH ALL ROLE PERMISSIONS (ADMIN ONLY)
+// ==========================================
+export const fetchRolePermissions = createAsyncThunk(
+  "auth/fetchRolePermissions",
+  async (roleId, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(`${API_URL}/roles/${roleId}/permissions`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data.permissions;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data || err.message
+      );
+    }
+  }
+);
+
+
+
+// ==========================================
+// ASSIGN PERMISSIONS TO ROLE
+// ==========================================
+
+export const assignRolePermissions = createAsyncThunk(
+    "auth/assignRolePermissions",
+    async ({ roleId, permissionIds }, thunkAPI) => {
+
+        try {
+            const token = localStorage.getItem("token");
+
+            const response = await axios.put(
+                `${API_URL}/roles/${roleId}/permissions`,
+                { permissionIds },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            return response.data;
+
+        } catch (err) {
+            return thunkAPI.rejectWithValue(
+                err.response?.data || err.message
+            );
+        }
+    }
+);
+
+
+// ==========================================
 // DELETE USER ACCOUNT
 // ==========================================
 export const deleteMe = createAsyncThunk(
@@ -112,36 +197,34 @@ export const deleteMe = createAsyncThunk(
 );
 
 
-// ==========================================
-// UPDATE USER ROLE
-// ==========================================
 export const updateRole = createAsyncThunk(
-  "auth/updateRole",
-  async ({ id, role }, thunkAPI) => {
-    try {
-      const token = localStorage.getItem("token");
+    'auth/updateRole',
+    async ({ id, role }, thunkAPI) => {
 
-      const response = await axios.put(
-        `${API_URL}/update-role`,
-        { id, role },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        try {
+
+            const token = localStorage.getItem('token');
+
+            const response = await axios.put(
+                `${API_URL}/users/${id}/role`,
+                { role },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            return response.data;
+
+        } catch (err) {
+
+            return thunkAPI.rejectWithValue(
+                err.response?.data || err.message
+            );
+
         }
-      );
-
-      return {
-        id,
-        role,
-        ...response.data,
-      };
-    } catch (err) {
-      return thunkAPI.rejectWithValue(
-        err.response?.data || err.message
-      );
     }
-  }
 );
 
 
@@ -228,7 +311,13 @@ const authSlice = createSlice({
     PermStatus: "idle",
     error: null,
     initialized: true,
-    permissions:[]
+    permissions:[],
+    rolesPerm:[],
+    roles:[],
+    rolesStatus:'idle',
+    assignStatus: 'idle',
+    rolesPermStatus:'idle',
+    assignSuccess: false,
   },
 
   reducers: {
@@ -267,6 +356,48 @@ const authSlice = createSlice({
       })
       .addCase(fetchPermissions.rejected, (state, action) => {
         state.PermStatus = "failed";
+        state.error = action.payload;
+      })
+
+      // FETCH ROLES PERMISSIONS
+      .addCase(fetchRolePermissions.pending, (state) => {
+        state.rolesPermStatus = "loading";
+        state.error = null;
+      })
+      .addCase(fetchRolePermissions.fulfilled, (state, action) => {
+        state.rolesPermStatus = "succeeded";
+        state.rolesPerm = action.payload || [];
+      })
+      .addCase(fetchRolePermissions.rejected, (state, action) => {
+        state.rolesPermStatus = "failed";
+        state.error = action.payload;
+      })
+
+      // FETCH ROLES 
+      .addCase(fetchRoles.pending, (state) => {
+        state.rolesStatus = "loading";
+        state.error = null;
+      })
+      .addCase(fetchRoles.fulfilled, (state, action) => {
+        state.rolesStatus = "succeeded";
+        state.roles = action.payload || [];
+      })
+      .addCase(fetchRoles.rejected, (state, action) => {
+        state.rolesStatus = "failed";
+        state.error = action.payload;
+      })
+
+      // FETCH ROLES 
+      .addCase(assignRolePermissions.pending, (state) => {
+        state.assignStatus = "loading";
+        state.error = null;
+      })
+      .addCase(assignRolePermissions.fulfilled, (state, action) => {
+        state.assignStatus = "succeeded";
+        state.assignSuccess = action.payload || [];
+      })
+      .addCase(assignRolePermissions.rejected, (state, action) => {
+        state.assignStatus = "failed";
         state.error = action.payload;
       })
 

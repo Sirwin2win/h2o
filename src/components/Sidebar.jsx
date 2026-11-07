@@ -76,22 +76,28 @@ const Sidebar = () => {
          <Link to={'/order'}>My Orders</Link>
          </span>  
       </li>
-      {user.role == 'admin' &&
+      {/* {user.role == 'admin' && */}
         <li className='flex items-center p-4 hover:bg-gray-700 cursor-pointer'>
         <FaUserEdit size={24}/>
         <span className={`ml-4 md:block ${isOpen?"block":"hidden"}`}>
         <Link to={'role'}>User Roles</Link>
          </span>  
       </li>
-      }
-      {user.role == 'admin' &&
+        <li className='flex items-center p-4 hover:bg-gray-700 cursor-pointer'>
+        <FaUserEdit size={24}/>
+        <span className={`ml-4 md:block ${isOpen?"block":"hidden"}`}>
+        <Link to={'assign-permissions'}>Assign Permissions Roles</Link>
+         </span>  
+      </li>
+      {/* } */}
+      {/* {user.role == 'admin' && */}
         <li className='flex items-center p-4 hover:bg-gray-700 cursor-pointer'>
         <FaUserEdit size={24}/>
         <span className={`ml-4 md:block ${isOpen?"block":"hidden"}`}>
         <Link to={'transaction-success'}>Payment Success Details</Link>
          </span>  
       </li>
-      }
+      {/* } */}
 
     
       <li className='flex items-center p-4 hover:bg-gray-700 cursor-pointer'>

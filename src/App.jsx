@@ -64,7 +64,7 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
            <Route path="/payment/failed" element={<PaymentFailed />} />
            <Route path="/order" element={<Orders />} />
-           <Route path="/assign-permissions" element={<AssignPermissions />} />
+           
           <Route
             path="/cart"
             element={
@@ -94,6 +94,7 @@ function App() {
             <Route path="manage-category" element={<ManageCategory />} />
             <Route path="order/:userId" element={<OrderDetail />} />
             <Route path="role" element={<UserRoleForm />} />
+            <Route path="assign-permissions" element={<AssignPermissions />} />
             <Route
               path="transaction-success"
               element={<TransactionsSuccessful />}
