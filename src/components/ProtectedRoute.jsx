@@ -1,17 +1,19 @@
-// components/ProtectedRoute.js
-import { useSelector } from 'react-redux';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { usePermissions } from './PermissionContext';
 
-function ProtectedRoute({ children }) {
-  const user = useSelector((state) => state.auth.user); // or whatever your auth slice is
-  const location = useLocation();
+const ProtectedRoute = ({ permission, children }) => {
 
-  if (!user) {
-    // Save where user was trying to go
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
+    const { hasPermission, loading } = usePermissions();
 
-  return children;
-}
+    if (loading) {
+        return <div>Loading permissions...</div>;
+    }
+
+    if (!hasPermission(permission)) {
+        return <Navigate to="/unauthorized" replace />;
+    }
+
+    return children;
+};
 
 export default ProtectedRoute;
