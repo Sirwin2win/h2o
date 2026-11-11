@@ -72,20 +72,41 @@ export const fetchPermissions = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.get(`${API_URL}/permissions`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      // Check if token exists
+      if (!token) {
+        return thunkAPI.rejectWithValue({
+          message: "Authentication required. Please log in again."
+        });
+      }
+
+      const response = await axios.get(
+        `${API_URL}/permissions`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return response.data.permissions;
+
     } catch (err) {
-      return thunkAPI.rejectWithValue(
+      console.error(
+        "Fetch permissions error:",
         err.response?.data || err.message
       );
+
+      return thunkAPI.rejectWithValue({
+        message:
+          err.response?.data?.message ||
+          err.message ||
+          "Failed to fetch permissions"
+      });
     }
   }
 );
+
 
 
 // ==========================================
